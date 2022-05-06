@@ -1,0 +1,16 @@
+[
+  {
+    "op": "add",
+    "path": "/behaviors",
+    "value": [
+      {
+        "name": "IR_UseOnBucket",
+        "properties": {
+          "OutputStack": { "type": "item", "code": "dough-spelt" },
+          "actionLangCode": "heldhelp-makedough"
+        }
+      }
+    ],
+    "file": "game:itemtypes/food/flour.json"
+  }
+]
