@@ -20,31 +20,9 @@ namespace ImmersiveCrafting
   //   SneakSprint,
   // }
 
-  public class UseOnBucketProperties
-  {
-    // public EnumInteractionKeys Hotkey = EnumInteractionKeys.RightClick;
-    // public AssetLocation sound = new AssetLocation("sounds/player/build");
-    // public JsonItemStack LiquidStack;
-    // JsonItemStack OutputStack;
-    // public ItemStack ResolvedItemStack { get; internal set; }
-
-    public UseOnBucketProperties Clone()
-    {
-      return new UseOnBucketProperties()
-      {
-        // Hotkey = Hotkey,
-        // sound = sound,
-        // LiquidStack = this.LiquidStack.Clone(),
-        // OutputStack = this.OutputStack.Clone()
-      };
-    }
-  }
-
   public class CollectibleBehaviorUseOnBucket : CollectibleBehavior
   {
-    public UseOnBucketProperties InteractionProps { get; protected set; }
     public AssetLocation liquidCode = new AssetLocation("waterportion");
-    // public UseOnBucketProperties OutputStack { get; set; }
     string actionlangcode;
     string sound;
     float takeQuantity;
@@ -62,7 +40,6 @@ namespace ImmersiveCrafting
       sound = properties["sound"].AsString();
       takeQuantity = properties["consumeLiters"].AsFloat();
       outputStack = properties.AsObject<JsonItemStack>(null, collObj.Code.Domain);
-      // InteractionProps = properties.AsObject<UseOnBucketProperties>(null, collObj.Code.Domain);
     }
 
     public override void OnHeldInteractStart(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
