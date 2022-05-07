@@ -60,8 +60,7 @@ namespace ImmersiveCrafting
 
       actionlangcode = properties["actionLangCode"].AsString();
       sound = properties["sound"].AsString();
-      takeQuantity = properties["litersPerItem"].AsFloat();
-      InteractionProps = properties.AsObject<UseOnBucketProperties>(null, collObj.Code.Domain);
+      takeQuantity = properties["consumeLiters"].AsFloat();
     }
 
     public override void OnHeldInteractStart(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
