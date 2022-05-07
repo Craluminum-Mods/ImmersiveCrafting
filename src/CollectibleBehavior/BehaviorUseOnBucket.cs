@@ -61,10 +61,10 @@ namespace ImmersiveCrafting
 
     public override void OnHeldInteractStart(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
     {
-        Interact(itemslot, byEntity, blockSel, entitySel, firstEvent, ref handHandling, ref handling);
+      Interact(itemslot, byEntity, blockSel, entitySel, firstEvent, ref handHandling, ref handling);
     }
 
-    public static void Interact(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
+    public void Interact(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
     {
       IWorldAccessor world = byEntity?.World;
 
