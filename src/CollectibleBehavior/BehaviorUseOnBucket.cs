@@ -25,8 +25,8 @@ namespace ImmersiveCrafting
     // public EnumInteractionKeys Hotkey = EnumInteractionKeys.RightClick;
     // public AssetLocation sound = new AssetLocation("sounds/player/build");
     // public JsonItemStack LiquidStack;
-    JsonItemStack OutputStack;
-    public ItemStack ResolvedItemStack { get; internal set; }
+    // JsonItemStack OutputStack;
+    // public ItemStack ResolvedItemStack { get; internal set; }
 
     public UseOnBucketProperties Clone()
     {
@@ -35,7 +35,7 @@ namespace ImmersiveCrafting
         // Hotkey = Hotkey,
         // sound = sound,
         // LiquidStack = this.LiquidStack.Clone(),
-        OutputStack = this.OutputStack.Clone()
+        // OutputStack = this.OutputStack.Clone()
       };
     }
   }
@@ -44,11 +44,11 @@ namespace ImmersiveCrafting
   {
     public UseOnBucketProperties InteractionProps { get; protected set; }
     public AssetLocation liquidCode = new AssetLocation("waterportion");
-    public UseOnBucketProperties OutputStack { get; set; }
+    // public UseOnBucketProperties OutputStack { get; set; }
     string actionlangcode;
     string sound;
     float takeQuantity;
-    ItemStack outputStack;
+    public JsonItemStack outputStack;
 
     public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
     {
@@ -61,6 +61,8 @@ namespace ImmersiveCrafting
       actionlangcode = properties["actionLangCode"].AsString();
       sound = properties["sound"].AsString();
       takeQuantity = properties["consumeLiters"].AsFloat();
+      outputStack = properties.AsObject<JsonItemStack>(null, collObj.Code.Domain);
+      // InteractionProps = properties.AsObject<UseOnBucketProperties>(null, collObj.Code.Domain);
     }
 
     public override void OnHeldInteractStart(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
@@ -94,14 +96,14 @@ namespace ImmersiveCrafting
                   stack = container.TryTakeContent(blockSel.Position, takeAmount);
                   if (stack != null)
                   {
-                    if (!byPlayer.InventoryManager.TryGiveItemstack(OutputStack?.ResolvedItemStack))
+                    if (!byPlayer.InventoryManager.TryGiveItemstack(outputStack.ResolvedItemstack))
                     {
-                      byEntity.Api.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
-                      byEntity.Api.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
-                      byEntity.Api.World.SpawnItemEntity(OutputStack?.ResolvedItemStack, byEntity.Pos.XYZ);
+                      byEntity.Api.World.SpawnItemEntity(outputStack.ResolvedItemstack, byEntity.Pos.XYZ);
                     }
                     itemslot.TakeOut(1);
                     itemslot.MarkDirty();
+                    byEntity.Api.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
+                    byEntity.Api.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
                     handHandling = EnumHandHandling.PreventDefault;
                   }
                 }
