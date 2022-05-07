@@ -25,7 +25,7 @@ namespace ImmersiveCrafting
     // public EnumInteractionKeys Hotkey = EnumInteractionKeys.RightClick;
     // public AssetLocation InteractSound = new AssetLocation("sounds/player/build");
     // public JsonItemStack LiquidStack;
-    public JsonItemStack OutputStack;
+    JsonItemStack OutputStack;
     public ItemStack ResolvedItemStack { get; internal set; }
 
     public UseOnBucketProperties Clone()
@@ -44,10 +44,11 @@ namespace ImmersiveCrafting
   {
     public UseOnBucketProperties InteractionProps { get; protected set; }
     public AssetLocation liquidCode = new AssetLocation("waterportion");
-    public static UseOnBucketProperties OutputStack => OutputStack;
+    public UseOnBucketProperties OutputStack { get; set; }
     string actionlangcode;
     string sound;
     float takeQuantity;
+    ItemStack outputStack;
 
     public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
     {
@@ -94,7 +95,7 @@ namespace ImmersiveCrafting
                   stack = container.TryTakeContent(blockSel.Position, takeAmount);
                   if (stack != null)
                   {
-                    if (!byPlayer.InventoryManager.TryGiveItemstack(OutputStack.ResolvedItemStack))
+                    if (!byPlayer.InventoryManager.TryGiveItemstack(OutputStack?.ResolvedItemStack))
                     {
                       byEntity.Api.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byPlayer, byPlayer);
                     }
