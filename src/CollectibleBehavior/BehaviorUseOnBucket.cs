@@ -97,9 +97,9 @@ namespace ImmersiveCrafting
                   {
                     if (!byPlayer.InventoryManager.TryGiveItemstack(OutputStack?.ResolvedItemStack))
                     {
-                      byEntity.Api.World.SpawnCubeParticles(byPlayer.Entity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
-                      byEntity.Api.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byPlayer, byPlayer);
-                      byEntity.Api.World.SpawnItemEntity(OutputStack?.ResolvedItemStack, byPlayer.Entity.Pos.XYZ);
+                      byEntity.Api.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
+                      byEntity.Api.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+                      byEntity.Api.World.SpawnItemEntity(OutputStack?.ResolvedItemStack, byEntity.Pos.XYZ);
                     }
                     itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
