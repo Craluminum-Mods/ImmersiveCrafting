@@ -4,7 +4,7 @@
     "path": "/behaviors",
     "value": [
       {
-        "name": "IR_UseOnBucket",
+        "name": "IC_UseOnBucket",
         "properties": {
           "OutputStack": { "type": "item", "code": "dough-spelt" },
           "actionLangCode": "heldhelp-makedough",

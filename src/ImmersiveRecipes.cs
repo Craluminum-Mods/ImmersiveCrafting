@@ -11,7 +11,7 @@ namespace ImmersiveCrafting.Load
     public override void Start(ICoreAPI api)
     {
       base.Start(api);
-      api.RegisterCollectibleBehaviorClass("IR_UseOnBucket", typeof(CollectibleBehaviorUseOnBucket));
+      api.RegisterCollectibleBehaviorClass("IC_UseOnBucket", typeof(CollectibleBehaviorUseOnBucket));
     }
   }
 }
