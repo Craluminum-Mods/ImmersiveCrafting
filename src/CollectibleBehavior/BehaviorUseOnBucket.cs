@@ -43,7 +43,7 @@ namespace ImmersiveCrafting
   public class CollectibleBehaviorUseOnBucket : CollectibleBehavior
   {
     public UseOnBucketProperties InteractionProps { get; protected set; }
-    private static AssetLocation waterCode = new AssetLocation("waterportion");
+    public AssetLocation liquidCode = new AssetLocation("waterportion");
     public static UseOnBucketProperties OutputStack => OutputStack;
     string actionlangcode;
 
@@ -79,7 +79,7 @@ namespace ImmersiveCrafting
           if (container.IsTopOpened)
           {
             var stack = container.GetContent(blockSel.Position);
-            if (stack != null && stack.Collectible.Code.Equals(waterCode))
+            if (stack != null && stack.Collectible.Code.Equals(liquidCode))
             {
               var props = BlockLiquidContainerBase.GetContainableProps(stack);
               if (props != null)
