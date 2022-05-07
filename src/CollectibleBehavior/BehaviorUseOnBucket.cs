@@ -46,6 +46,7 @@ namespace ImmersiveCrafting
     public AssetLocation liquidCode = new AssetLocation("waterportion");
     public static UseOnBucketProperties OutputStack => OutputStack;
     string actionlangcode;
+    string sound;
 
     public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
     {
@@ -56,6 +57,7 @@ namespace ImmersiveCrafting
       base.Initialize(properties);
 
       actionlangcode = properties["actionLangCode"].AsString();
+      sound = properties["sound"].AsString();
       InteractionProps = properties.AsObject<UseOnBucketProperties>(null, collObj.Code.Domain);
     }
 
@@ -92,7 +94,7 @@ namespace ImmersiveCrafting
                   {
                     if (!byPlayer.InventoryManager.TryGiveItemstack(OutputStack.ResolvedItemStack))
                     {
-                      byEntity.Api.World.SpawnItemEntity(OutputStack.ResolvedItemStack, blockSel.Position.ToVec3d().Add(0.5, 0.2, 0.5));
+                      byEntity.Api.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byPlayer, byPlayer);
                     }
                     itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
