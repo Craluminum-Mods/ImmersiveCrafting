@@ -47,6 +47,7 @@ namespace ImmersiveCrafting
     public static UseOnBucketProperties OutputStack => OutputStack;
     string actionlangcode;
     string sound;
+    float takeQuantity;
 
     public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
     {
@@ -58,6 +59,7 @@ namespace ImmersiveCrafting
 
       actionlangcode = properties["actionLangCode"].AsString();
       sound = properties["sound"].AsString();
+      takeQuantity = properties["litersPerItem"].AsFloat();
       InteractionProps = properties.AsObject<UseOnBucketProperties>(null, collObj.Code.Domain);
     }
 
@@ -86,7 +88,7 @@ namespace ImmersiveCrafting
               var props = BlockLiquidContainerBase.GetContainableProps(stack);
               if (props != null)
               {
-                int takeAmount = (int)Math.Ceiling((1f) * props.ItemsPerLitre);
+                int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
                 if (takeAmount > 0)
                 {
                   stack = container.TryTakeContent(blockSel.Position, takeAmount);
