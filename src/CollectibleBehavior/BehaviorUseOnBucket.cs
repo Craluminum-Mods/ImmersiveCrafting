@@ -100,6 +100,7 @@ namespace ImmersiveCrafting
                       byEntity.Api.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
                       byEntity.Api.World.SpawnItemEntity(OutputStack?.ResolvedItemStack, byEntity.Pos.XYZ);
                     }
+                    itemslot.TakeOut(1);
                     itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
                   }
