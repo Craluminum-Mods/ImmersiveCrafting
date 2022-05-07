@@ -23,7 +23,7 @@ namespace ImmersiveCrafting
   public class UseOnBucketProperties
   {
     // public EnumInteractionKeys Hotkey = EnumInteractionKeys.RightClick;
-    // public AssetLocation InteractSound = new AssetLocation("sounds/player/build");
+    // public AssetLocation sound = new AssetLocation("sounds/player/build");
     // public JsonItemStack LiquidStack;
     JsonItemStack OutputStack;
     public ItemStack ResolvedItemStack { get; internal set; }
@@ -33,7 +33,7 @@ namespace ImmersiveCrafting
       return new UseOnBucketProperties()
       {
         // Hotkey = Hotkey,
-        // InteractSound = InteractSound,
+        // sound = sound,
         // LiquidStack = this.LiquidStack.Clone(),
         OutputStack = this.OutputStack.Clone()
       };
