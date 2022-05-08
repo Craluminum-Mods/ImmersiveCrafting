@@ -22,12 +22,12 @@ namespace ImmersiveCrafting
 
   public class CollectibleBehaviorUseOnBucket : CollectibleBehavior
   {
-    public AssetLocation liquidCode = new AssetLocation("waterportion");
     string actionlangcode;
     string sound;
     float takeQuantity;
     int ingredientQuantity;
     JsonItemStack outputStack;
+    JsonItemStack liquidStack;
 
     public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
     {
@@ -42,6 +42,7 @@ namespace ImmersiveCrafting
       takeQuantity = properties["consumeLiters"].AsFloat();
       ingredientQuantity = properties["ingredientQuantity"].AsInt();
       outputStack = properties["outputStack"].AsObject<JsonItemStack>();
+      liquidStack = properties["liquidStack"].AsObject<JsonItemStack>();
     }
 
     public override void OnHeldInteractStart(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
@@ -77,7 +78,7 @@ namespace ImmersiveCrafting
           if (container.IsTopOpened)
           {
             var liquid = container.GetContent(blockSel.Position);
-            if (liquid != null && liquid.Collectible.Code.Equals(liquidCode))
+            if (liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code))
             {
               var props = BlockLiquidContainerBase.GetContainableProps(liquid);
               if (props != null)
