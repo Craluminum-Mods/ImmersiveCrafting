@@ -23,11 +23,11 @@ namespace ImmersiveCrafting
   public class CollectibleBehaviorUseOnBucket : CollectibleBehavior
   {
     public AssetLocation liquidCode = new AssetLocation("waterportion");
-    public AssetLocation testOutputStack = new AssetLocation("beeswax");
     string actionlangcode;
     string sound;
     float takeQuantity;
     int ingredientQuantity;
+    JsonItemStack outputStack;
 
     public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
     {
@@ -41,6 +41,7 @@ namespace ImmersiveCrafting
       sound = properties["sound"].AsString();
       takeQuantity = properties["consumeLiters"].AsFloat();
       ingredientQuantity = properties["ingredientQuantity"].AsInt();
+      outputStack = properties["outputStack"].AsObject<JsonItemStack>();
     }
 
     public override void OnHeldInteractStart(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
