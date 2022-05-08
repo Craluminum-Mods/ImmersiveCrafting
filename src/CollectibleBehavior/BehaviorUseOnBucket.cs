@@ -103,7 +103,7 @@ namespace ImmersiveCrafting
                     }
                     byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
                     byEntity.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
-                    itemslot.TakeOut(ingredientQuantity);  /// Ignores ingredientQuantity completely when less items left
+                    itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
                     itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
                   }
