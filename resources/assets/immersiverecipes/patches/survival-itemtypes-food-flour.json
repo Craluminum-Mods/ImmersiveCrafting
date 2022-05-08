@@ -6,7 +6,7 @@
       {
         "name": "IC_UseOnBucket",
         "properties": {
-          "OutputStack": { "type": "item", "code": "dough-spelt" },
+          "output": { "type": "item", "code": "dough-spelt", "quantity": 1 },
           "actionLangCode": "heldhelp-makedough",
           "sound": "effect/water-fill",
           "consumeLiters": 1

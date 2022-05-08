@@ -23,6 +23,7 @@ namespace ImmersiveCrafting
   public class CollectibleBehaviorUseOnBucket : CollectibleBehavior
   {
     public AssetLocation liquidCode = new AssetLocation("waterportion");
+    public AssetLocation testOutputStack = new AssetLocation("beeswax");
     string actionlangcode;
     string sound;
     float takeQuantity;
@@ -39,7 +40,7 @@ namespace ImmersiveCrafting
       actionlangcode = properties["actionLangCode"].AsString();
       sound = properties["sound"].AsString();
       takeQuantity = properties["consumeLiters"].AsFloat();
-      outputStack = properties.AsObject<JsonItemStack>(null, collObj.Code.Domain);
+      outputStack = properties["output"].AsObject<JsonItemStack>((null), collObj.Code.Domain);
     }
 
     public override void OnHeldInteractStart(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
@@ -49,7 +50,7 @@ namespace ImmersiveCrafting
 
     public void Interact(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
     {
-      IWorldAccessor world = byEntity?.World;
+      IWorldAccessor world = byEntity.World;
 
       IPlayer byPlayer = null;
       if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
@@ -73,14 +74,15 @@ namespace ImmersiveCrafting
                   stack = container.TryTakeContent(blockSel.Position, takeAmount);
                   if (stack != null)
                   {
-                    if (!byPlayer.InventoryManager.TryGiveItemstack(outputStack.ResolvedItemstack))
+                    ItemStack outputstack = new ItemStack(world.GetItem(testOutputStack));
+                    if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
                     {
-                      byEntity.Api.World.SpawnItemEntity(outputStack.ResolvedItemstack, byEntity.Pos.XYZ);
+                      byEntity.World.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
                     }
                     itemslot.TakeOut(1);
                     itemslot.MarkDirty();
-                    byEntity.Api.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
-                    byEntity.Api.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+                    byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
+                    byEntity.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
                     handHandling = EnumHandHandling.PreventDefault;
                   }
                 }
