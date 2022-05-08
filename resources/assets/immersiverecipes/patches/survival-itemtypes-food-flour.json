@@ -9,7 +9,8 @@
           "output": { "type": "item", "code": "dough-spelt", "quantity": 1 },
           "actionLangCode": "heldhelp-makedough",
           "sound": "effect/water-fill",
-          "consumeLiters": 1
+          "consumeLiters": 1,
+          "ingredientQuantity": 8
         }
       }
     ],

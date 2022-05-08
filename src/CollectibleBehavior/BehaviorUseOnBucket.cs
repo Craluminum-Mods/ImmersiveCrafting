@@ -96,7 +96,7 @@ namespace ImmersiveCrafting
                     itemslot.MarkDirty();
                     byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
                     byEntity.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
-                    itemslot.TakeOut(1);
+                    itemslot.TakeOut(ingredientQuantity);
                     itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
                   }
