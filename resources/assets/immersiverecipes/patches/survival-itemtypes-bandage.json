@@ -1,0 +1,22 @@
+[
+  {
+    "op": "add",
+    "path": "/behaviorsByType",
+    "value": {
+      "bandage-clean": [
+        {
+          "name": "IC_UseOnBucket",
+          "properties": {
+            "outputStack": { "type": "item", "code": "bandage-alcoholed", "quantity": 1 },
+            "liquidStack": { "type": "item", "code": "alcoholportion" },
+            "actionLangCode": "ic_heldhelp-soakbandage",
+            "sound": "effect/water-fill",
+            "consumeLiters": 0.2,
+            "ingredientQuantity": 1
+          }
+        }
+      ]
+    },
+    "file": "itemtypes/bandage.json"
+  }
+]
