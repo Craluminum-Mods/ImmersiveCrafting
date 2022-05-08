@@ -22,6 +22,7 @@ namespace ImmersiveCrafting
 
   public class CollectibleBehaviorUseOnBucket : CollectibleBehavior
   {
+    bool spawnParticles;
     string actionlangcode;
     string sound;
     float takeQuantity;
@@ -38,6 +39,7 @@ namespace ImmersiveCrafting
     {
       base.Initialize(properties);
 
+      spawnParticles = properties["spawnParticles"].AsBool();
       actionlangcode = properties["actionLangCode"].AsString();
       sound = properties["sound"].AsString();
       takeQuantity = properties["consumeLiters"].AsFloat();
@@ -104,7 +106,10 @@ namespace ImmersiveCrafting
                     {
                       byEntity.World.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
                     }
-                    byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
+                    if (spawnParticles != false)
+                    {
+                      byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
+                    }
                     byEntity.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
                     itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
                     itemslot.MarkDirty();
