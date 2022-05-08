@@ -8,6 +8,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace ImmersiveCrafting
@@ -30,9 +31,41 @@ namespace ImmersiveCrafting
     JsonItemStack outputStack;
     JsonItemStack liquidStack;
     BlockLiquidContainerBase targetContainer;
+    WorldInteraction[] interactions;
 
     public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
     {
+    }
+
+    public override void OnLoaded(ICoreAPI api)
+    {
+      base.OnLoaded(api);
+
+      api.Event.EnqueueMainThreadTask(() =>
+      {
+        interactions = ObjectCacheUtil.GetOrCreate(api, "liquidContainerInteractions", () =>
+        {
+          List<ItemStack> lstacks = new List<ItemStack>();
+
+          foreach (CollectibleObject obj in api.World.Collectibles)
+          {
+            if (obj is BlockLiquidContainerBase blc && blc.IsTopOpened && blc.AllowHeldLiquidTransfer)
+            {
+              lstacks.Add(new ItemStack(obj));
+            }
+          }
+
+          return new WorldInteraction[]
+          {
+            new WorldInteraction()
+            {
+              ActionLangCode = actionlangcode,
+              MouseButton = EnumMouseButton.Right,
+              Itemstacks = lstacks.ToArray()
+            }
+          };
+        });
+      }, "initLiquidContainerInteractions");
     }
 
     public override void Initialize(JsonObject properties)
@@ -56,14 +89,7 @@ namespace ImmersiveCrafting
     public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot, ref EnumHandling handling)
     {
       handling = EnumHandling.PassThrough;
-      return new WorldInteraction[]
-      {
-        new WorldInteraction
-        {
-            ActionLangCode = actionlangcode,
-            MouseButton = EnumMouseButton.Right
-        }
-      };
+      return interactions.Append(base.GetHeldInteractionHelp(inSlot, ref handling));
     }
   
     public void Interact(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
