@@ -6,12 +6,12 @@
       {
         "name": "IC_UseOnBucket",
         "properties": {
-          "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 8 },
+          "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
           "liquidStack": { "type": "item", "code": "waterportion" },
           "actionLangCode": "ic_heldhelp-makedough",
           "sound": "effect/water-fill",
           "consumeLiters": 1,
-          "ingredientQuantity": 8
+          "ingredientQuantity": 1
         }
       }
     ],
