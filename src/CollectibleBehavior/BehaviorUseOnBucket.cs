@@ -48,6 +48,19 @@ namespace ImmersiveCrafting
       Interact(itemslot, byEntity, blockSel, entitySel, firstEvent, ref handHandling, ref handling);
     }
 
+    public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot, ref EnumHandling handling)
+    {
+      handling = EnumHandling.PassThrough;
+      return new WorldInteraction[]
+      {
+        new WorldInteraction
+        {
+            ActionLangCode = actionlangcode,
+            MouseButton = EnumMouseButton.Right
+        }
+      };
+    }
+  
     public void Interact(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
     {
       IWorldAccessor world = byEntity.World;
@@ -83,6 +96,8 @@ namespace ImmersiveCrafting
                     itemslot.MarkDirty();
                     byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
                     byEntity.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+                    itemslot.TakeOut(1);
+                    itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
                   }
                 }
