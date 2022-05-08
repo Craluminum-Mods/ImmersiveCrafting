@@ -28,6 +28,7 @@ namespace ImmersiveCrafting
     int ingredientQuantity;
     JsonItemStack outputStack;
     JsonItemStack liquidStack;
+    BlockLiquidContainerBase targetContainer;
 
     public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
     {
@@ -71,13 +72,15 @@ namespace ImmersiveCrafting
       if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
       if (byPlayer == null) return;
 
+      targetContainer = byEntity.World.BlockAccessor.GetBlock(blockSel.Position) as BlockLiquidContainerBase;
+
       if (firstEvent && handHandling != EnumHandHandling.PreventDefault)
       {
-        if (blockSel != null && byEntity.World.BlockAccessor.GetBlock(blockSel.Position) is BlockLiquidContainerBase container)
+        if (blockSel != null && targetContainer != null)
         {
-          if (container.IsTopOpened)
+          if (targetContainer.IsTopOpened)
           {
-            var liquid = container.GetContent(blockSel.Position);
+            var liquid = targetContainer.GetContent(blockSel.Position);
             if (liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code))
             {
               var props = BlockLiquidContainerBase.GetContainableProps(liquid);
@@ -86,7 +89,7 @@ namespace ImmersiveCrafting
                 int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
                 if (takeAmount > 0)
                 {
-                  liquid = container.TryTakeContent(blockSel.Position, takeAmount);
+                  liquid = targetContainer.TryTakeContent(blockSel.Position, takeAmount);
                   if (liquid != null)
                   {
                     ItemStack outputstack = null;
