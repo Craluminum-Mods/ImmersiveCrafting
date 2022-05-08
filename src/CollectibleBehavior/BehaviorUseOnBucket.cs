@@ -107,18 +107,5 @@ namespace ImmersiveCrafting
         }
       }
     }
-
-    public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot, ref EnumHandling handling)
-    {
-      handling = EnumHandling.PassThrough;
-      return new WorldInteraction[]
-      {
-        new WorldInteraction
-        {
-            ActionLangCode = actionlangcode,
-            MouseButton = EnumMouseButton.Right
-        }
-      };
-    }
   }
 }
