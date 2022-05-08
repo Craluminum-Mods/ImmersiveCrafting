@@ -75,17 +75,17 @@ namespace ImmersiveCrafting
         {
           if (container.IsTopOpened)
           {
-            var stack = container.GetContent(blockSel.Position);
-            if (stack != null && stack.Collectible.Code.Equals(liquidCode))
+            var liquid = container.GetContent(blockSel.Position);
+            if (liquid != null && liquid.Collectible.Code.Equals(liquidCode))
             {
-              var props = BlockLiquidContainerBase.GetContainableProps(stack);
+              var props = BlockLiquidContainerBase.GetContainableProps(liquid);
               if (props != null)
               {
                 int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
                 if (takeAmount > 0)
                 {
-                  stack = container.TryTakeContent(blockSel.Position, takeAmount);
-                  if (stack != null)
+                  liquid = container.TryTakeContent(blockSel.Position, takeAmount);
+                  if (liquid != null)
                   {
                     ItemStack outputstack = new ItemStack(world.GetItem(testOutputStack));
                     if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
