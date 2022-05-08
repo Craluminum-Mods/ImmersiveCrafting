@@ -88,7 +88,14 @@ namespace ImmersiveCrafting
                   liquid = container.TryTakeContent(blockSel.Position, takeAmount);
                   if (liquid != null)
                   {
-                    ItemStack outputstack = new ItemStack(world.GetItem(outputStack.Code), outputStack.StackSize); /// Crashes on trying to output a block
+                    ItemStack outputstack = null;
+                    
+                    if (outputStack.Type == EnumItemClass.Item)
+                      outputstack = new ItemStack(world.GetItem(outputStack.Code), outputStack.StackSize);
+
+                    if (outputStack.Type == EnumItemClass.Block)
+                      outputstack = new ItemStack(world.GetBlock(outputStack.Code), outputStack.StackSize);
+
                     if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
                     {
                       byEntity.World.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
