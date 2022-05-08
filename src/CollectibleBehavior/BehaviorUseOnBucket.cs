@@ -92,8 +92,6 @@ namespace ImmersiveCrafting
                     {
                       byEntity.World.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
                     }
-                    itemslot.TakeOut(1);
-                    itemslot.MarkDirty();
                     byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
                     byEntity.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
                     itemslot.TakeOut(ingredientQuantity);
