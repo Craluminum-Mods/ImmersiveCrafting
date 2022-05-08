@@ -27,7 +27,7 @@ namespace ImmersiveCrafting
     string actionlangcode;
     string sound;
     float takeQuantity;
-    public JsonItemStack outputStack;
+    // public JsonItemStack outputStack;
 
     public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
     {
@@ -40,7 +40,7 @@ namespace ImmersiveCrafting
       actionlangcode = properties["actionLangCode"].AsString();
       sound = properties["sound"].AsString();
       takeQuantity = properties["consumeLiters"].AsFloat();
-      outputStack = properties["output"].AsObject<JsonItemStack>((null), collObj.Code.Domain);
+      // outputStack = properties["output"].AsObject<JsonItemStack>((null), collObj.Code.Domain);
     }
 
     public override void OnHeldInteractStart(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
