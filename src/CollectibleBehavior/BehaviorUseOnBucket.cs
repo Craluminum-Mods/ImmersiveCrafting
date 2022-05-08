@@ -87,7 +87,7 @@ namespace ImmersiveCrafting
               if (props != null)
               {
                 int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
-                if (takeAmount > 0)
+                if (takeAmount <= liquid.StackSize)
                 {
                   liquid = targetContainer.TryTakeContent(blockSel.Position, takeAmount);
                   if (liquid != null)
