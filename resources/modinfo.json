@@ -3,7 +3,7 @@
   "modid": "ImmersiveCrafting",
   "name": "Immersive Recipes",
   "authors": ["Craluminum2413"],
-  "version": "1.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "game": "1.16.0",
     "aaamakeitcompatible": "0.0.0"
