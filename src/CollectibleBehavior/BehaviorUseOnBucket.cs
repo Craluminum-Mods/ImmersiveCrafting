@@ -8,7 +8,7 @@ using Vintagestory.GameContent;
 
 namespace ImmersiveCrafting
 {
-  public class CollectibleBehaviorUseOnBucket : CollectibleBehavior
+  public class CollectibleBehaviorUseWithLiquidContainer : CollectibleBehavior
   {
     bool spawnParticles;
     string actionlangcode;
@@ -20,7 +20,7 @@ namespace ImmersiveCrafting
     BlockLiquidContainerBase targetContainer;
     WorldInteraction[] interactions;
 
-    public CollectibleBehaviorUseOnBucket(CollectibleObject collObj) : base(collObj)
+    public CollectibleBehaviorUseWithLiquidContainer(CollectibleObject collObj) : base(collObj)
     {
     }
 

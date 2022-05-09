@@ -3,7 +3,7 @@
     "op": "add",
     "path": "/behaviors/-",
     "value": {
-      "name": "IC_UseOnBucket",
+      "name": "IC_UseWithLiquidContainer",
       "properties": {
         "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
         "liquidStack": { "type": "item", "code": "waterportion" },

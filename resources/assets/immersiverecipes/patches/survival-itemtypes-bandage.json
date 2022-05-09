@@ -3,7 +3,7 @@
     "op": "add",
     "path": "/behaviorsByType/*-clean/-",
     "value": {
-      "name": "IC_UseOnBucket",
+      "name": "IC_UseWithLiquidContainer",
       "properties": {
         "outputStack": { "type": "item", "code": "bandage-alcoholed", "quantity": 1 },
         "liquidStack": { "type": "item", "code": "alcoholportion" },
