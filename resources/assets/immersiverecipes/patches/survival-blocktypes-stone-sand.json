@@ -1,0 +1,18 @@
+[
+  {
+    "op": "add",
+    "path": "/behaviors/1",
+    "value": {
+      "name": "IC_UseOnLiquidContainer",
+      "properties": {
+        "outputStack": { "type": "item", "code": "mortar", "quantity": 8 },
+        "liquidStack": { "type": "item", "code": "slakedlimeportion" },
+        "actionLangCode": "ic_heldhelp-makemortar",
+        "sound": "effect/water-fill",
+        "consumeLiters": 1,
+        "ingredientQuantity": 1
+      }
+    },
+    "file": "game:blocktypes/stone/sand.json"
+  }
+]
