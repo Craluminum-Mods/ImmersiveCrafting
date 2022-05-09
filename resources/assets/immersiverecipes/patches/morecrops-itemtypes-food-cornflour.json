@@ -1,0 +1,21 @@
+[
+  {
+    "op": "add",
+    "path": "/behaviors",
+    "value": [
+      {
+        "name": "IC_UseOnLiquidContainer",
+        "properties": {
+          "outputStack": { "type": "item", "code": "potatoes:cornbreaddough-corn", "quantity": 1 },
+          "liquidStack": { "type": "item", "code": "game:waterportion" },
+          "actionLangCode": "ic_heldhelp-makedough",
+          "sound": "effect/water-fill",
+          "consumeLiters": 1,
+          "ingredientQuantity": 1
+        }
+      }
+    ],
+    "file": "potatoes:itemtypes/food/cornflour.json",
+    "dependsOn": [{ "modid": "potatoes" }]
+  }
+]
