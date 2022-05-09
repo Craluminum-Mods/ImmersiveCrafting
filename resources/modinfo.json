@@ -2,7 +2,7 @@
   "type": "code",
   "modid": "immersivecrafting",
   "name": "Immersive Crafting",
-  "authors": ["Craluminum2413"],
+  "authors": ["Craluminum2413", "ralmeida"],
   "version": "0.0.1",
   "dependencies": {
     "game": "1.16.0",
