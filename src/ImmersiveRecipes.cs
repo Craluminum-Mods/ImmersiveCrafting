@@ -11,7 +11,7 @@ namespace ImmersiveCrafting.Load
     public override void Start(ICoreAPI api)
     {
       base.Start(api);
-      api.RegisterCollectibleBehaviorClass("IC_UseWithLiquidContainer", typeof(CollectibleBehaviorUseWithLiquidContainer));
+      api.RegisterCollectibleBehaviorClass("IC_UseOnLiquidContainer", typeof(CollectibleBehaviorUseWithLiquidContainer));
     }
   }
 }
