@@ -1,4 +1,4 @@
 {
-  "game:ic_heldhelp-makedough": "Make dough",
-  "game:ic_heldhelp-soakbandage": "Soak bandage"
+  "game:ic_heldhelp-makedough": "Make dough (requires 1L of water)",
+  "game:ic_heldhelp-soakbandage": "Soak bandage (requires 0.2L of aqua vitae)"
 }
