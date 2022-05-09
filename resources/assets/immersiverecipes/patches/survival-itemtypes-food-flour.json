@@ -1,20 +1,18 @@
 [
   {
     "op": "add",
-    "path": "/behaviors",
-    "value": [
-      {
-        "name": "IC_UseOnBucket",
-        "properties": {
-          "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
-          "liquidStack": { "type": "item", "code": "waterportion" },
-          "actionLangCode": "ic_heldhelp-makedough",
-          "sound": "effect/water-fill",
-          "consumeLiters": 1,
-          "ingredientQuantity": 1
-        }
+    "path": "/behaviors/-",
+    "value": {
+      "name": "IC_UseOnBucket",
+      "properties": {
+        "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
+        "liquidStack": { "type": "item", "code": "waterportion" },
+        "actionLangCode": "ic_heldhelp-makedough",
+        "sound": "effect/water-fill",
+        "consumeLiters": 1,
+        "ingredientQuantity": 1
       }
-    ],
+    },
     "file": "game:itemtypes/food/flour.json"
   }
 ]
