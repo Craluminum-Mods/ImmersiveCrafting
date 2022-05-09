@@ -8,14 +8,6 @@ using Vintagestory.GameContent;
 
 namespace ImmersiveCrafting
 {
-  // public enum EnumInteractionKeys
-  // {
-  //   RightClick,
-  //   Sneak,
-  //   Sprint,
-  //   SneakSprint,
-  // }
-
   public class CollectibleBehaviorUseOnBucket : CollectibleBehavior
   {
     bool spawnParticles;
