@@ -119,7 +119,7 @@ namespace ImmersiveCrafting
                     {
                       byEntity.World.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
                     }
-                    if (spawnParticles != false)
+                    if (spawnParticles == true)
                     {
                       byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
                     }

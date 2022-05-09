@@ -10,8 +10,7 @@
         "actionLangCode": "ic_heldhelp-soakbandage",
         "sound": "effect/water-fill",
         "consumeLiters": 0.2,
-        "ingredientQuantity": 1,
-        "spawnParticles": false
+        "ingredientQuantity": 1
       }
     },
     "file": "game:itemtypes/bandage.json"

@@ -10,7 +10,8 @@
         "actionLangCode": "ic_heldhelp-makedough",
         "sound": "effect/water-fill",
         "consumeLiters": 1,
-        "ingredientQuantity": 1
+        "ingredientQuantity": 1,
+        "spawnParticles": true
       }
     },
     "file": "game:itemtypes/food/flour.json"
