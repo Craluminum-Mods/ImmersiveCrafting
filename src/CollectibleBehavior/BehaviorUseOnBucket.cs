@@ -17,7 +17,6 @@ namespace ImmersiveCrafting
     int ingredientQuantity;
     JsonItemStack outputStack;
     JsonItemStack liquidStack;
-    BlockLiquidContainerBase targetContainer;
     WorldInteraction[] interactions;
 
     public CollectibleBehaviorUseOnLiquidContainer(CollectibleObject collObj) : base(collObj)
@@ -87,11 +86,41 @@ namespace ImmersiveCrafting
       if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
       if (byPlayer == null) return;
 
-      targetContainer = byEntity.World.BlockAccessor.GetBlock(blockSel.Position) as BlockLiquidContainerBase;
+      var blockCnt = block as BlockLiquidContainerTopOpened;
 
       if (firstEvent && handHandling != EnumHandHandling.PreventDefault)
       {
-        if (blockSel != null && targetContainer != null)
+        if (blockCnt != null)
+        {
+          var liquid = blockCnt.GetContent(blockSel.Position);
+          if (liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code))
+          {
+            var props = BlockLiquidContainerBase.GetContainableProps(liquid);
+            if (props != null)
+            {
+              int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
+              if (takeAmount <= liquid.StackSize)
+              {
+                liquid = blockCnt.TryTakeContent(blockSel.Position, takeAmount);
+                if (liquid != null)
+                {
+                  if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
+                  {
+                    world.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
+                  }
+                  if (spawnParticles)
+                  {
+                    world.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
+                  }
+                  world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+                  itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
+                  itemslot.MarkDirty();
+                  handHandling = EnumHandHandling.PreventDefault;
+                }
+              }
+            }
+          }
+        }
         {
           if (targetContainer.IsTopOpened)
           {
