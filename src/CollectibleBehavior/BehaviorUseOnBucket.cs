@@ -35,7 +35,7 @@ namespace ImmersiveCrafting
 
           foreach (CollectibleObject obj in api.World.Collectibles)
           {
-            if (obj is BlockLiquidContainerBase blc && blc.IsTopOpened && blc.AllowHeldLiquidTransfer)
+            if (obj is BlockLiquidContainerBase blc && blc.IsTopOpened && blc.AllowHeldLiquidTransfer || obj is BlockBarrel)
             {
               lstacks.Add(new ItemStack(obj));
             }
