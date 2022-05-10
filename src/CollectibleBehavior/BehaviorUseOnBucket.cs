@@ -168,6 +168,45 @@ namespace ImmersiveCrafting
             }
           }
         }
+        else if (block is BlockGroundStorage)
+        {
+          // if (!byEntity.Controls.Sneak) return;
+          var begs = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityGroundStorage;
+          ItemSlot gsslot = begs.GetSlotAt(blockSel);
+          if (gsslot == null || gsslot.Empty) return;
+
+          var liquid = blockCnt.GetContent(gsslot.Itemstack); /// Cause crash on this line
+          if (liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code))
+          {
+            var props = BlockLiquidContainerBase.GetContainableProps(liquid);
+            if (props != null)
+            {
+              int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
+              if (takeAmount <= liquid.StackSize)
+              {
+                liquid = blockCnt.TryTakeContent(gsslot.Itemstack, takeAmount);  /// Probably will cause crash on this line too
+                if (liquid != null)
+                {
+                  if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
+                  {
+                    world.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
+                  }
+                  if (spawnParticles)
+                  {
+                    world.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
+                  }
+                  world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+                  itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
+                  itemslot.MarkDirty();
+                  gsslot.MarkDirty();
+                  begs.updateMeshes();
+                  begs.MarkDirty(true);
+                  handHandling = EnumHandHandling.PreventDefault;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
