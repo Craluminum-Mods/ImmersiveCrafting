@@ -85,6 +85,7 @@ namespace ImmersiveCrafting
       var world = byEntity.World;
 
       var block = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
+      var blockEntity = world.BlockAccessor.GetBlockEntity(blockSel.Position);
 
       IPlayer byPlayer = null;
       if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
@@ -135,7 +136,7 @@ namespace ImmersiveCrafting
         }
         else if (block is BlockBarrel)
         {
-          BlockEntityBarrel bebarrel = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityBarrel;
+          BlockEntityBarrel bebarrel = blockEntity as BlockEntityBarrel;
           if (bebarrel != null)
           {
             var liquid = bebarrel.Inventory[1].Itemstack;
@@ -171,7 +172,7 @@ namespace ImmersiveCrafting
         else if (block is BlockGroundStorage)
         {
           // if (!byEntity.Controls.Sneak) return;
-          var begs = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityGroundStorage;
+          var begs = blockEntity as BlockEntityGroundStorage;
           ItemSlot gsslot = begs.GetSlotAt(blockSel);
           if (gsslot == null || gsslot.Empty) return;
 
