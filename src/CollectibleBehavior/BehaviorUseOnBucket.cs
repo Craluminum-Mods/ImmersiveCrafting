@@ -133,10 +133,12 @@ namespace ImmersiveCrafting
             }
           }
         }
+        else if (block is BlockBarrel)
         {
-          if (targetContainer.IsTopOpened)
+          BlockEntityBarrel bebarrel = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityBarrel;
+          if (bebarrel != null)
           {
-            var liquid = targetContainer.GetContent(blockSel.Position);
+            var liquid = bebarrel.Inventory[1].Itemstack;
             if (liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code))
             {
               var props = BlockLiquidContainerBase.GetContainableProps(liquid);
@@ -145,26 +147,18 @@ namespace ImmersiveCrafting
                 int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
                 if (takeAmount <= liquid.StackSize)
                 {
-                  liquid = targetContainer.TryTakeContent(blockSel.Position, takeAmount);
+                  liquid = bebarrel.Inventory[1].TakeOut(takeAmount);
                   if (liquid != null)
                   {
-                    ItemStack outputstack = null;
-                    
-                    if (outputStack.Type == EnumItemClass.Item)
-                      outputstack = new ItemStack(world.GetItem(outputStack.Code), outputStack.StackSize);
-
-                    if (outputStack.Type == EnumItemClass.Block)
-                      outputstack = new ItemStack(world.GetBlock(outputStack.Code), outputStack.StackSize);
-
                     if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
                     {
-                      byEntity.World.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
+                      world.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
                     }
-                    if (spawnParticles == true)
+                    if (spawnParticles)
                     {
-                      byEntity.World.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
+                      world.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
                     }
-                    byEntity.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+                    world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
                     itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
                     itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
