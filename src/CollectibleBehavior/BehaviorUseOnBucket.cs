@@ -80,7 +80,7 @@ namespace ImmersiveCrafting
   
     public void Interact(ItemSlot itemslot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
     {
-      IWorldAccessor world = byEntity.World;
+      if (blockSel == null) return;
 
       IPlayer byPlayer = null;
       if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
