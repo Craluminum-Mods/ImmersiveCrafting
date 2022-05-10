@@ -82,6 +82,10 @@ namespace ImmersiveCrafting
     {
       if (blockSel == null) return;
 
+      var world = byEntity.World;
+
+      var block = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
+
       IPlayer byPlayer = null;
       if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
       if (byPlayer == null) return;
