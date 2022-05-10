@@ -86,6 +86,14 @@ namespace ImmersiveCrafting
       if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
       if (byPlayer == null) return;
 
+      ItemStack outputstack = null;
+
+      if (outputStack.Type == EnumItemClass.Item)
+        outputstack = new ItemStack(world.GetItem(outputStack.Code), outputStack.StackSize);
+
+      if (outputStack.Type == EnumItemClass.Block)
+        outputstack = new ItemStack(world.GetBlock(outputStack.Code), outputStack.StackSize);
+
       var blockCnt = block as BlockLiquidContainerTopOpened;
 
       if (firstEvent && handHandling != EnumHandHandling.PreventDefault)
