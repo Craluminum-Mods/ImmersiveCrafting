@@ -92,13 +92,7 @@ namespace ImmersiveCrafting
       if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
       if (byPlayer == null) return;
 
-      ItemStack outputstack = null;
-
-      if (outputStack.Type == EnumItemClass.Item)
-        outputstack = new ItemStack(world.GetItem(outputStack.Code), outputStack.StackSize);
-
-      if (outputStack.Type == EnumItemClass.Block)
-        outputstack = new ItemStack(world.GetBlock(outputStack.Code), outputStack.StackSize);
+      ItemStack outputstack = GetType(world);
 
       var blockCnt = block as BlockLiquidContainerTopOpened;
 
@@ -106,27 +100,21 @@ namespace ImmersiveCrafting
       {
         if (blockCnt != null)
         {
-          var liquid = blockCnt.GetContent(blockSel.Position);
-          if (liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code))
+          var liquid = blockCnt.GetContent(blockPos);
+          if (IsLiquidStack(liquid))
           {
-            var props = BlockLiquidContainerBase.GetContainableProps(liquid);
+            var props = GetProps(liquid);
             if (props != null)
             {
-              int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
+              int takeAmount = GetLiquidAsInt(props);
               if (takeAmount <= liquid.StackSize)
               {
-                liquid = blockCnt.TryTakeContent(blockSel.Position, takeAmount);
+                liquid = blockCnt.TryTakeContent(blockPos, takeAmount);
                 if (liquid != null)
                 {
-                  if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
-                  {
-                    world.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
-                  }
-                  if (spawnParticles)
-                  {
-                    world.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
-                  }
-                  world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+                  CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
+                  CanSpawnParticles(itemslot, byEntity, world, spawnParticles);
+                  GetSound(byEntity, world);
                   itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
                   itemslot.MarkDirty();
                   handHandling = EnumHandHandling.PreventDefault;
@@ -141,26 +129,20 @@ namespace ImmersiveCrafting
           if (bebarrel != null)
           {
             var liquid = bebarrel.Inventory[1].Itemstack;
-            if (liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code))
+            if (IsLiquidStack(liquid))
             {
-              var props = BlockLiquidContainerBase.GetContainableProps(liquid);
+              var props = GetProps(liquid);
               if (props != null)
               {
-                int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
+                int takeAmount = GetLiquidAsInt(props);
                 if (takeAmount <= liquid.StackSize)
                 {
                   liquid = bebarrel.Inventory[1].TakeOut(takeAmount);
                   if (liquid != null)
                   {
-                    if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
-                    {
-                      world.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
-                    }
-                    if (spawnParticles)
-                    {
-                      world.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
-                    }
-                    world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+                    CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
+                    CanSpawnParticles(itemslot, byEntity, world, spawnParticles);
+                    GetSound(byEntity, world);
                     itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
                     bebarrel.MarkDirty(true);
                     itemslot.MarkDirty();
@@ -179,26 +161,20 @@ namespace ImmersiveCrafting
           if (gsslot == null || gsslot.Empty) return;
 
           var liquid = blockCnt.GetContent(gsslot.Itemstack); /// Cause crash on this line
-          if (liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code))
+          if (IsLiquidStack(liquid))
           {
-            var props = BlockLiquidContainerBase.GetContainableProps(liquid);
+            var props = GetProps(liquid);
             if (props != null)
             {
-              int takeAmount = (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
+              int takeAmount = GetLiquidAsInt(props);
               if (takeAmount <= liquid.StackSize)
               {
                 liquid = blockCnt.TryTakeContent(gsslot.Itemstack, takeAmount);  /// Probably will cause crash on this line too
                 if (liquid != null)
                 {
-                  if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
-                  {
-                    world.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
-                  }
-                  if (spawnParticles)
-                  {
-                    world.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
-                  }
-                  world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+                  CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
+                  CanSpawnParticles(itemslot, byEntity, world, spawnParticles);
+                  GetSound(byEntity, world);
                   itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
                   itemslot.MarkDirty();
                   gsslot.MarkDirty();
@@ -210,6 +186,39 @@ namespace ImmersiveCrafting
             }
           }
         }
+      }
+    }
+
+    private static WaterTightContainableProps GetProps(ItemStack liquid) => BlockLiquidContainerBase.GetContainableProps(liquid);
+    private void GetSound(EntityAgent byEntity, IWorldAccessor world) => world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+    private bool IsLiquidStack(ItemStack liquid) => liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code);
+    private int GetLiquidAsInt(WaterTightContainableProps props) => (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
+
+    private ItemStack GetType(IWorldAccessor world)
+    {
+      ItemStack outputstack = null;
+
+      if (outputStack.Type == EnumItemClass.Item)
+        outputstack = new ItemStack(world.GetItem(outputStack.Code), outputStack.StackSize);
+
+      if (outputStack.Type == EnumItemClass.Block)
+        outputstack = new ItemStack(world.GetBlock(outputStack.Code), outputStack.StackSize);
+      return outputstack;
+    }
+
+    private static void CanSpawnItemStack(EntityAgent byEntity, IWorldAccessor world, IPlayer byPlayer, ItemStack outputstack)
+    {
+      if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
+      {
+        world.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
+      }
+    }
+
+    private static void CanSpawnParticles(ItemSlot itemslot, EntityAgent byEntity, IWorldAccessor world, bool spawnParticles)
+    {
+      if (spawnParticles)
+      {
+        world.SpawnCubeParticles(byEntity.Pos.XYZ, itemslot.Itemstack.Clone(), 0.1f, 80, 0.3f);
       }
     }
   }
