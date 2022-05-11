@@ -17,6 +17,7 @@
       }
     ],
     "file": "potatoes:itemtypes/food/cornflour.json",
-    "dependsOn": [{ "modid": "potatoes" }]
+    "dependsOn": [{ "modid": "potatoes" }],
+    "side": "server"
   }
 ]

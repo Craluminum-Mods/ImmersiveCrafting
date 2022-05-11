@@ -14,6 +14,7 @@
         "spawnParticles": true
       }
     },
-    "file": "game:itemtypes/food/flour.json"
+    "file": "game:itemtypes/food/flour.json",
+    "side": "server"
   }
 ]

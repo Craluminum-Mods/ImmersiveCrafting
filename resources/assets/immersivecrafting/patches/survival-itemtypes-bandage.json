@@ -13,6 +13,7 @@
         "ingredientQuantity": 1
       }
     },
-    "file": "game:itemtypes/bandage.json"
+    "file": "game:itemtypes/bandage.json",
+    "side": "server"
   }
 ]
