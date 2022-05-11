@@ -94,11 +94,11 @@ namespace ImmersiveCrafting
 
       ItemStack outputstack = GetType(world);
 
-      var blockCnt = block as BlockLiquidContainerTopOpened;
+      var blockCnt = block as BlockLiquidContainerBase;
 
       if (firstEvent && handHandling != EnumHandHandling.PreventDefault)
       {
-        if (blockCnt != null)
+        if (blockCnt != null && blockCnt.IsTopOpened)
         {
           var liquid = blockCnt.GetContent(blockPos);
           if (IsLiquidStack(liquid))
