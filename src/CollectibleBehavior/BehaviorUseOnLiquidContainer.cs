@@ -32,12 +32,17 @@ namespace ImmersiveCrafting
         interactions = ObjectCacheUtil.GetOrCreate(api, "liquidContainerInteractions" + actionlangcode, () =>
         {
           List<ItemStack> lstacks = new List<ItemStack>();
+          List<ItemStack> lbstacks = new List<ItemStack>();
 
           foreach (CollectibleObject obj in api.World.Collectibles)
           {
-            if (obj is BlockLiquidContainerBase blc && blc.IsTopOpened && blc.AllowHeldLiquidTransfer || obj is BlockBarrel)
+            if (obj is BlockLiquidContainerBase blc && blc.IsTopOpened && blc.AllowHeldLiquidTransfer)
             {
               lstacks.Add(new ItemStack(obj));
+            }
+            if (obj is BlockBarrel)
+            {
+              lbstacks.Add(new ItemStack(obj));
             }
           }
 
@@ -48,7 +53,14 @@ namespace ImmersiveCrafting
               ActionLangCode = actionlangcode,
               MouseButton = EnumMouseButton.Right,
               Itemstacks = lstacks.ToArray()
-            }
+            },
+            new WorldInteraction()
+            {
+              ActionLangCode = actionlangcode,
+              MouseButton = EnumMouseButton.Right,
+              HotKeyCode = "sneak",
+              Itemstacks = lbstacks.ToArray()
+            },
           };
         });
       }, "initLiquidContainerInteractions");
