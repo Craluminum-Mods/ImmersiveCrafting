@@ -161,6 +161,7 @@ namespace ImmersiveCrafting
                     }
                     world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
                     itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
+                    bebarrel.MarkDirty(true);
                     itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
                   }
