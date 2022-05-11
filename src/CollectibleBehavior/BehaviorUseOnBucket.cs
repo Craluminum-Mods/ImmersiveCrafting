@@ -115,7 +115,7 @@ namespace ImmersiveCrafting
                   CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
                   CanSpawnParticles(itemslot, byEntity, world, spawnParticles);
                   GetSound(byEntity, world);
-                  itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
+                  TryConsumeIngredient(itemslot);  /// BUG: Ignores ingredientQuantity completely when less items left
                   itemslot.MarkDirty();
                   handHandling = EnumHandHandling.PreventDefault;
                 }
@@ -143,7 +143,7 @@ namespace ImmersiveCrafting
                     CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
                     CanSpawnParticles(itemslot, byEntity, world, spawnParticles);
                     GetSound(byEntity, world);
-                    itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
+                    TryConsumeIngredient(itemslot);  /// BUG: Ignores ingredientQuantity completely when less items left
                     bebarrel.MarkDirty(true);
                     itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
@@ -175,7 +175,7 @@ namespace ImmersiveCrafting
                   CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
                   CanSpawnParticles(itemslot, byEntity, world, spawnParticles);
                   GetSound(byEntity, world);
-                  itemslot.TakeOut(ingredientQuantity);  /// BUG: Ignores ingredientQuantity completely when less items left
+                  TryConsumeIngredient(itemslot);  /// BUG: Ignores ingredientQuantity completely when less items left
                   itemslot.MarkDirty();
                   gsslot.MarkDirty();
                   begs.updateMeshes();
@@ -193,6 +193,7 @@ namespace ImmersiveCrafting
     private void GetSound(EntityAgent byEntity, IWorldAccessor world) => world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
     private bool IsLiquidStack(ItemStack liquid) => liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code);
     private int GetLiquidAsInt(WaterTightContainableProps props) => (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
+    private ItemStack TryConsumeIngredient(ItemSlot itemslot) => itemslot.TakeOut(ingredientQuantity);
 
     private ItemStack GetType(IWorldAccessor world)
     {
