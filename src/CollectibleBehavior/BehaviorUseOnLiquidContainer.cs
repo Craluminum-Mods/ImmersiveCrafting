@@ -119,7 +119,7 @@ namespace ImmersiveCrafting
             if (props != null)
             {
               int takeAmount = GetLiquidAsInt(props);
-              if (takeAmount <= liquid.StackSize)
+              if (SatisfiesQuantity(itemslot, liquid, takeAmount))
               {
                 liquid = blockCnt.TryTakeContent(blockPos, takeAmount);
                 if (liquid != null)
@@ -127,7 +127,7 @@ namespace ImmersiveCrafting
                   CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
                   CanSpawnParticles(itemslot, byEntity, world, spawnParticles);
                   GetSound(byEntity, world);
-                  TryConsumeIngredient(itemslot);  /// BUG: Ignores ingredientQuantity completely when less items left
+                  TryConsumeIngredient(itemslot);
                   itemslot.MarkDirty();
                   handHandling = EnumHandHandling.PreventDefault;
                 }
@@ -155,7 +155,7 @@ namespace ImmersiveCrafting
                     CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
                     CanSpawnParticles(itemslot, byEntity, world, spawnParticles);
                     GetSound(byEntity, world);
-                    TryConsumeIngredient(itemslot);  /// BUG: Ignores ingredientQuantity completely when less items left
+                    TryConsumeIngredient(itemslot);
                     bebarrel.MarkDirty(true);
                     itemslot.MarkDirty();
                     handHandling = EnumHandHandling.PreventDefault;
@@ -187,7 +187,7 @@ namespace ImmersiveCrafting
         //           CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
         //           CanSpawnParticles(itemslot, byEntity, world, spawnParticles);
         //           GetSound(byEntity, world);
-        //           TryConsumeIngredient(itemslot);  /// BUG: Ignores ingredientQuantity completely when less items left
+        //           TryConsumeIngredient(itemslot);
         //           itemslot.MarkDirty();
         //           gsslot.MarkDirty();
         //           begs.updateMeshes();
@@ -199,6 +199,11 @@ namespace ImmersiveCrafting
         //   }
         // }
       }
+    }
+
+    private bool SatisfiesQuantity(ItemSlot itemslot, ItemStack liquid, int takeAmount)
+    {
+      return takeAmount <= liquid.StackSize && itemslot.StackSize >= ingredientQuantity;
     }
 
     private static WaterTightContainableProps GetProps(ItemStack liquid) => BlockLiquidContainerBase.GetContainableProps(liquid);
