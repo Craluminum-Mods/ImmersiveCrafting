@@ -6,16 +6,16 @@ Currently it is limited to one liquidStack per item.
 Example of implementation:
 ```json
 {
-      "name": "IC_UseOnLiquidContainer",
-      "properties": {
-        "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
-        "liquidStack": { "type": "item", "code": "waterportion" },
-        "actionLangCode": "ic_heldhelp-makedough",
-        "sound": "effect/water-fill",
-        "consumeLiters": 1,
-        "ingredientQuantity": 1,
-        "spawnParticles": true
-      }
+  "name": "IC_UseOnLiquidContainer",
+  "properties": {
+    "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
+    "liquidStack": { "type": "item", "code": "waterportion" },
+    "actionLangCode": "ic_heldhelp-makedough",
+    "sound": "effect/water-fill",
+    "consumeLiters": 1,
+    "ingredientQuantity": 1,
+    "spawnParticles": true
+  }
 }
 ```
 1. **outputStack** (`ItemStack`) can be any item or block.
