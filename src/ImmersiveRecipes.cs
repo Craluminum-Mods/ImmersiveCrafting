@@ -12,6 +12,7 @@ namespace ImmersiveCrafting.Load
     {
       base.Start(api);
       api.RegisterCollectibleBehaviorClass("IC_UseOnLiquidContainer", typeof(CollectibleBehaviorUseOnLiquidContainer));
+      api.RegisterCollectibleBehaviorClass("IC_SealCrock", typeof(CollectibleBehaviorSealCrock));
     }
   }
 }
