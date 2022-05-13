@@ -1,7 +1,7 @@
 {
-  "game:ic_heldhelp-makedough": "Make dough (requires 1L of water)",
-  "game:ic_heldhelp-makemortar": "Make 8x mortar (requires 1L of slaked lime)",
-  "game:ic_heldhelp-soakbandage": "Soak with alcohol (requires 0.2L of aqua vitae)",
-  "game:ic_heldhelp-wet": "Wet (requires 1L of water)",
+  "heldhelp-makedough": "Make dough (requires 1L of water)",
+  "heldhelp-makemortar": "Make 8x mortar (requires 1L of slaked lime)",
+  "heldhelp-soakbandage": "Soak with alcohol (requires 0.2L of aqua vitae)",
+  "heldhelp-wet": "Wet (requires 1L of water)",
   "heldhelp-sealcrock": "Seal the crock"
 }

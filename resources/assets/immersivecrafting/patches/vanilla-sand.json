@@ -7,7 +7,7 @@
       "properties": {
         "outputStack": { "type": "item", "code": "mortar", "quantity": 8 },
         "liquidStack": { "type": "item", "code": "slakedlimeportion" },
-        "actionLangCode": "ic_heldhelp-makemortar",
+        "actionLangCode": "immersivecrafting:heldhelp-makemortar",
         "sound": "effect/water-fill",
         "consumeLiters": 1,
         "ingredientQuantity": 1,
