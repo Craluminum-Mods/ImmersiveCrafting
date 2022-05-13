@@ -147,7 +147,7 @@ namespace ImmersiveCrafting
               if (props != null)
               {
                 int takeAmount = GetLiquidAsInt(props);
-                if (takeAmount <= liquid.StackSize)
+                if (SatisfiesQuantity(slot, liquid, takeAmount))
                 {
                   liquid = bebarrel.Inventory[1].TakeOut(takeAmount);
                   if (liquid != null)
