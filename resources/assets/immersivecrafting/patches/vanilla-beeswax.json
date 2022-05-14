@@ -1,8 +1,8 @@
 [
   {
     "op": "add",
-    "path": "/behaviors",
-    "value": [{ "name": "IC_SealCrock" }],
+    "path": "/behaviors/-",
+    "value": { "name": "IC_SealCrock" },
     "file": "game:itemtypes/resource/beeswax.json"
   }
 ]
