@@ -24,13 +24,13 @@ namespace ImmersiveCrafting
       {
         interactions = ObjectCacheUtil.GetOrCreate(api, "crockInteractions", () =>
         {
-          List<ItemStack> lstacks = new List<ItemStack>();
+          List<ItemStack> crockStacks = new List<ItemStack>();
 
           foreach (CollectibleObject obj in api.World.Collectibles)
           {
-            if (obj is BlockLiquidContainerBase blc && blc.IsTopOpened && blc.AllowHeldLiquidTransfer)
+            if (obj is BlockCrock blc)
             {
-              lstacks.Add(new ItemStack(obj));
+              crockStacks.Add(new ItemStack(obj));
             }
           }
 
@@ -40,7 +40,7 @@ namespace ImmersiveCrafting
             {
               ActionLangCode = "immersivecrafting:heldhelp-sealcrock",
               MouseButton = EnumMouseButton.Right,
-              Itemstacks = lstacks.ToArray()
+              Itemstacks = crockStacks.ToArray()
             }
           };
         });
