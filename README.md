@@ -26,3 +26,8 @@ Example of implementation:
 6. **ingredientQuantity** (`int`) defines how much of ingredient to consume.
 7. **spawnParticles** (`bool`) if true, then will spawn particles under player based on the main ingredient
 ----
+### Behavior `IC_SealCrock`
+Add this to any item/block you want to use to seal placed crocks.
+```json
+{ "name": "IC_SealCrock" }
+```
