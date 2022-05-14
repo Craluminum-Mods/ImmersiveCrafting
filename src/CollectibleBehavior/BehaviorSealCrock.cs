@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
@@ -46,11 +44,6 @@ namespace ImmersiveCrafting
         });
       }, "initCrockInteractions");
     }
-
-    // public override void Initialize(JsonObject properties)
-    // {
-    //   base.Initialize(properties);
-    // }
 
     public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
     {
