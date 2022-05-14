@@ -4,6 +4,7 @@
     "path": "/behaviors",
     "value": [{ "name": "IC_SealCrock" }],
     "file": "ancienttools:itemtypes/resources/pitch.json",
-    "side": "server"
+    "side": "server",
+    "dependsOn": [{ "modid": "ancienttools" }]
   }
 ]
