@@ -77,21 +77,17 @@ namespace ImmersiveCrafting
           var begs = blockEntity as BlockEntityGroundStorage;
           ItemSlot gsslot = begs.GetSlotAt(blockSel);
           if (gsslot == null || gsslot.Empty) return;
+          ItemStack crock = gsslot.Itemstack;
 
-          if (gsslot.Itemstack.Collectible is BlockCrock)
+          if (crock?.Collectible is BlockCrock && crock.Attributes.GetBool("sealed") == false)
           {
-            ItemStack crock = gsslot.Itemstack;
-
-            if (crock?.Collectible is BlockCrock && crock.Attributes.GetBool("sealed") == false)
-            {
-              crock.Attributes.SetBool("sealed", true);
-              slot.TakeOut(1);
-              slot.MarkDirty();
-              gsslot.MarkDirty();
-              begs.updateMeshes();
-              begs.MarkDirty(true);
-              handHandling = EnumHandHandling.PreventDefault;
-            }
+            crock.Attributes.SetBool("sealed", true);
+            slot.TakeOut(1);
+            slot.MarkDirty();
+            gsslot.MarkDirty();
+            begs.updateMeshes();
+            begs.MarkDirty(true);
+            handHandling = EnumHandHandling.PreventDefault;
           }
         }
       }
