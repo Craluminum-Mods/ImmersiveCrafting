@@ -89,7 +89,7 @@ namespace ImmersiveCrafting
       handling = EnumHandling.PassThrough;
       return interactions.Append(base.GetHeldInteractionHelp(inSlot, ref handling));
     }
-  
+
     public void Interact(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
     {
       if (blockSel == null) return;
@@ -171,28 +171,31 @@ namespace ImmersiveCrafting
           ItemSlot gsslot = begs.GetSlotAt(blockSel);
           if (gsslot == null || gsslot.Empty) return;
 
-          blockCnt = gsslot.Itemstack.Block as BlockLiquidContainerBase;
-          var liquid = blockCnt.GetContent(gsslot.Itemstack);
-          if (IsLiquidStack(liquid))
+          if (gsslot.Itemstack.Collectible is BlockLiquidContainerBase)
           {
-            var props = GetProps(liquid);
-            if (props != null)
+            blockCnt = gsslot.Itemstack.Block as BlockLiquidContainerBase;
+            var liquid = blockCnt.GetContent(gsslot.Itemstack);
+            if (IsLiquidStack(liquid))
             {
-              int takeAmount = GetLiquidAsInt(props);
-              if (SatisfiesQuantity(slot, liquid, takeAmount))
+              var props = GetProps(liquid);
+              if (props != null)
               {
-                liquid = blockCnt.TryTakeContent(gsslot.Itemstack, takeAmount);
-                if (liquid != null)
+                int takeAmount = GetLiquidAsInt(props);
+                if (SatisfiesQuantity(slot, liquid, takeAmount))
                 {
-                  CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
-                  CanSpawnParticles(slot, byEntity, world, spawnParticles);
-                  GetSound(byEntity, world);
-                  TryConsumeIngredient(slot);
-                  slot.MarkDirty();
-                  gsslot.MarkDirty();
-                  begs.updateMeshes();
-                  begs.MarkDirty(true);
-                  handHandling = EnumHandHandling.PreventDefault;
+                  liquid = blockCnt.TryTakeContent(gsslot.Itemstack, takeAmount);
+                  if (liquid != null)
+                  {
+                    CanSpawnItemStack(byEntity, world, byPlayer, outputstack);
+                    CanSpawnParticles(slot, byEntity, world, spawnParticles);
+                    GetSound(byEntity, world);
+                    TryConsumeIngredient(slot);
+                    slot.MarkDirty();
+                    gsslot.MarkDirty();
+                    begs.updateMeshes();
+                    begs.MarkDirty(true);
+                    handHandling = EnumHandHandling.PreventDefault;
+                  }
                 }
               }
             }
