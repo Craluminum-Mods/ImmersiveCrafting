@@ -59,12 +59,6 @@ namespace ImmersiveCrafting
         if (bec.Inventory[0].Itemstack?.Collectible.Variant["type"] == "salted")
         {
           var newStack = new ItemStack(world.GetItem(bec.Inventory[0].Itemstack?.Collectible.CodeWithVariant("type", "waxed")));
-
-          TransitionableProperties[] tprops = newStack.Collectible.GetTransitionableProperties(world, newStack, null);
-
-          var perishProps = tprops.FirstOrDefault(p => p.Type == EnumTransitionType.Perish);
-          perishProps.TransitionedStack.Resolve(world, "pie perished stack");
-          CarryOverFreshness(world.Api, bec.Inventory[0], newStack, perishProps); /// for some reason it doesn't copy TransitionableProperties
           slot.TakeOut(1);
           slot.MarkDirty();
           bec.Inventory[0].Itemstack = newStack;
