@@ -52,10 +52,6 @@ namespace ImmersiveCrafting
       var block = world.BlockAccessor.GetBlock(blockPos);
       var blockEntity = world.BlockAccessor.GetBlockEntity(blockPos);
 
-      // IPlayer byPlayer = null;
-      // if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
-      // if (byPlayer == null) return;
-
       if (block is BlockCheese)
       {
         BECheese bec = blockEntity as BECheese;
@@ -68,7 +64,7 @@ namespace ImmersiveCrafting
 
           var perishProps = tprops.FirstOrDefault(p => p.Type == EnumTransitionType.Perish);
           perishProps.TransitionedStack.Resolve(world, "pie perished stack");
-          CarryOverFreshness(world.Api, bec.Inventory[0], newStack, perishProps);
+          CarryOverFreshness(world.Api, bec.Inventory[0], newStack, perishProps); /// for some reason it doesn't copy TransitionableProperties
           slot.TakeOut(1);
           slot.MarkDirty();
           bec.Inventory[0].Itemstack = newStack;
