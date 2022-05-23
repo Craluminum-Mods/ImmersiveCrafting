@@ -52,10 +52,6 @@ namespace ImmersiveCrafting
       var block = world.BlockAccessor.GetBlock(blockPos);
       var blockEntity = world.BlockAccessor.GetBlockEntity(blockPos);
 
-      // IPlayer byPlayer = null;
-      // if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
-      // if (byPlayer == null) return;
-
       if (block is BlockCheese)
       {
         BECheese bec = blockEntity as BECheese;
