@@ -81,7 +81,7 @@ namespace ImmersiveCrafting
           gsslot.MarkDirty();
           begs.updateMeshes();
           begs.MarkDirty(true);
-          handHandling = EnumHandHandling.PreventDefault;
+          handHandling = EnumHandHandling.PreventDefault; /// Quadrants layout in GroundStorable behavior completely overwrites this handling, no idea how to fix
         }
       }
     }
