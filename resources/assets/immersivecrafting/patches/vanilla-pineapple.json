@@ -7,7 +7,7 @@
         "name": "IC_UseToolThenRemoveBlock",
         "properties": {
           "outputStack": { "type": "item", "code": "fruit-pineapple", "quantity": 12 },
-          "actionLangCode": "immersivecrafting:blockhelp-pineapple-cut",
+          "actionLangCode": "immersivecrafting:blockhelp-cutintoslices",
           "toolDurabilityCost": 1,
           "toolTypes": ["Knife", "Sword"]
         }

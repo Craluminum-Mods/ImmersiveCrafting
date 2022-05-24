@@ -8,7 +8,7 @@
           "name": "IC_UseToolThenRemoveBlock",
           "properties": {
             "outputStack": { "type": "item", "code": "vegetable-pumpkin", "quantity": 4 },
-            "actionLangCode": "immersivecrafting:blockhelp-pumpkin-cut",
+            "actionLangCode": "immersivecrafting:blockhelp-cutintoslices",
             "toolDurabilityCost": 1,
             "toolTypes": ["Knife", "Sword"]
           }
