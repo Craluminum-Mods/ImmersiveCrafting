@@ -8,7 +8,8 @@
         "properties": {
           "outputStack": { "type": "item", "code": "fruit-pineapple", "quantity": 12 },
           "actionLangCode": "immersivecrafting:blockhelp-pineapple-cut",
-          "toolDurabilityCost": 1
+          "toolDurabilityCost": 1,
+          "toolTypes": ["Knife", "Sword"]
         }
       }
     ],

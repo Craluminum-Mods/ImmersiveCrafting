@@ -9,7 +9,8 @@
           "properties": {
             "outputStack": { "type": "item", "code": "vegetable-pumpkin", "quantity": 4 },
             "actionLangCode": "immersivecrafting:blockhelp-pumpkin-cut",
-            "toolDurabilityCost": 1
+            "toolDurabilityCost": 1,
+            "toolTypes": ["Knife", "Sword"]
           }
         }
       ]
