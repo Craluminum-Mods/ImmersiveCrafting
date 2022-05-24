@@ -104,7 +104,9 @@ namespace ImmersiveCrafting
       if (byEntity is EntityPlayer) byPlayer = world.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
       if (byPlayer == null) return;
 
-      ItemStack outputstack = GetType(world);
+      ItemStack outputstack = null;
+      if (outputStack.Resolve(world, "output stacks"))
+        outputstack = outputStack.ResolvedItemstack;
 
       var blockCnt = block as BlockLiquidContainerBase;
 
@@ -214,18 +216,6 @@ namespace ImmersiveCrafting
     private bool IsLiquidStack(ItemStack liquid) => liquid != null && liquid.Collectible.Code.Equals(liquidStack.Code);
     private int GetLiquidAsInt(WaterTightContainableProps props) => (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
     private ItemStack TryConsumeIngredient(ItemSlot slot) => slot.TakeOut(ingredientQuantity);
-
-    private ItemStack GetType(IWorldAccessor world)
-    {
-      ItemStack outputstack = null;
-
-      if (outputStack.Type == EnumItemClass.Item)
-        outputstack = new ItemStack(world.GetItem(outputStack.Code), outputStack.StackSize);
-
-      if (outputStack.Type == EnumItemClass.Block)
-        outputstack = new ItemStack(world.GetBlock(outputStack.Code), outputStack.StackSize);
-      return outputstack;
-    }
 
     private static void CanSpawnItemStack(EntityAgent byEntity, IWorldAccessor world, IPlayer byPlayer, ItemStack outputstack)
     {
