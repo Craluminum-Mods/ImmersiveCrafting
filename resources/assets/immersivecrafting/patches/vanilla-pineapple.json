@@ -1,0 +1,18 @@
+[
+  {
+    "op": "add",
+    "path": "/behaviors",
+    "value": [
+      {
+        "name": "IC_UseToolThenRemoveBlock",
+        "properties": {
+          "outputStack": { "type": "item", "code": "fruit-pineapple", "quantity": 12 },
+          "actionLangCode": "immersivecrafting:blockhelp-pineapple-cut",
+          "toolDurabilityCost": 1
+        }
+      }
+    ],
+    "file": "game:blocktypes/food/pineapple.json",
+    "side": "server"
+  }
+]

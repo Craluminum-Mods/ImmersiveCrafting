@@ -1,0 +1,20 @@
+[
+  {
+    "op": "add",
+    "path": "/behaviorsByType",
+    "value": {
+      "*-4": [
+        {
+          "name": "IC_UseToolThenRemoveBlock",
+          "properties": {
+            "outputStack": { "type": "item", "code": "vegetable-pumpkin", "quantity": 4 },
+            "actionLangCode": "immersivecrafting:blockhelp-pumpkin-cut",
+            "toolDurabilityCost": 1
+          }
+        }
+      ]
+    },
+    "file": "game:blocktypes/plant/pumpkin/fruit.json",
+    "side": "server"
+  }
+]
