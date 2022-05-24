@@ -106,7 +106,9 @@ namespace ImmersiveCrafting
 
       ItemStack outputstack = null;
       if (outputStack.Resolve(world, "output stacks"))
+      {
         outputstack = outputStack.ResolvedItemstack;
+      }
 
       var blockCnt = block as BlockLiquidContainerBase;
 

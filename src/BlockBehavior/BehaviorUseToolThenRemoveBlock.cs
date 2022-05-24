@@ -79,11 +79,13 @@ namespace ImmersiveCrafting
     {
       ItemStack outputstack = null;
       if (outputStack.Resolve(world, "output stacks"))
+      {
         outputstack = outputStack.ResolvedItemstack;
+      }
 
       ItemStack itemslot = byPlayer.InventoryManager.ActiveHotbarSlot?.Itemstack;
 
-      if (CanUseHeldTool(toolTypes, byPlayer, itemslot))
+      if (CanUseHeldTool(toolTypes, itemslot))
       {
         itemslot.Collectible.DamageItem(world, byPlayer.Entity, byPlayer.InventoryManager.ActiveHotbarSlot, toolDurabilityCost);
 
@@ -105,14 +107,14 @@ namespace ImmersiveCrafting
       return interactions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer, ref handling));
     }
 
-    private bool CanUseHeldTool(EnumTool[] toolTypes, IPlayer byPlayer, ItemStack itemslot)
+    private bool CanUseHeldTool(EnumTool[] toolTypes, ItemStack itemslot)
     {
-      if (itemslot?.Collectible.GetDurability(itemslot) >= toolDurabilityCost)
+      var tool = itemslot?.Collectible?.Tool;
+      if (itemslot?.Collectible.GetDurability(itemslot) >= toolDurabilityCost && tool != null)
       {
-        EnumTool? targetTool = itemslot?.Collectible.Tool;
-        for (int i = 0; i < toolTypes.Length; i++) if (targetTool == toolTypes[i]) return true;
+        return toolTypes.Contains<EnumTool>((EnumTool)tool);
       }
-      return false;
+      else return false;
     }
   }
 }
