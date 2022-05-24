@@ -3,7 +3,6 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
-using static Vintagestory.API.Common.CollectibleObject;
 
 namespace ImmersiveCrafting
 {
