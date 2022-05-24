@@ -41,17 +41,18 @@ namespace ImmersiveCrafting
       }
       toolTypesStrTmp = null;
 
-      interactions = ObjectCacheUtil.GetOrCreate(api, "useToolThenRemoveBlockInteractions-", () =>
+      interactions = ObjectCacheUtil.GetOrCreate(api, "useToolThenRemoveBlockInteractions-" + block, () =>
       {
-        // List<ItemStack> toolStacks = new List<ItemStack>();
+        List<ItemStack> toolStacks = new List<ItemStack>();
 
-        // foreach (CollectibleObject obj in api.World.Items)
-        // {
-        //   if (obj.Tool == EnumTool.Knife || obj.Tool == EnumTool.Sword)
-        //   {
-        //     toolStacks.Add(new ItemStack(obj));
-        //   }
-        // }
+        foreach (CollectibleObject collObj in api.World.Collectibles)
+        {
+          var tool = collObj.Tool;
+          if (tool != null && toolTypes.Contains<EnumTool>((EnumTool)tool))
+          {
+            toolStacks.Add(new ItemStack(collObj));
+          }
+        }
 
         return new WorldInteraction[]
         {
@@ -59,7 +60,7 @@ namespace ImmersiveCrafting
           {
             ActionLangCode = actionlangcode,
             MouseButton = EnumMouseButton.Right,
-            // Itemstacks = toolStacks.ToArray()
+            Itemstacks = toolStacks.ToArray()
           }
         };
       });
