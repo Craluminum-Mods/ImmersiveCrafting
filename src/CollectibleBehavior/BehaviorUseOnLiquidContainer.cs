@@ -216,7 +216,7 @@ namespace ImmersiveCrafting
     {
       if (spawnParticles)
       {
-        world.SpawnCubeParticles(byEntity.Pos.XYZ, slot.Itemstack.Clone(), 0.1f, 80, 0.3f);
+        world.SpawnCubeParticles(byEntity.Pos.XYZ, slot.Itemstack.Clone(), 0.1f, 10, 0.3f);
       }
     }
   }

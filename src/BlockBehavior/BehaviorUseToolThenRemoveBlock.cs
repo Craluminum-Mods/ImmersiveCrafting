@@ -126,7 +126,7 @@ namespace ImmersiveCrafting
     {
       if (spawnParticles)
       {
-        world.SpawnCubeParticles(pos, pos.ToVec3d().Add(0.5, 0, 0.5), 0.5f, 80, 0.5f);
+        world.SpawnCubeParticles(pos, pos.ToVec3d().Add(0.5, 0, 0.5), 0.5f, 30, 0.5f);
       }
     }
 
