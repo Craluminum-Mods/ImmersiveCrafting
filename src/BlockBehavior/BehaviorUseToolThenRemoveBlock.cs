@@ -5,12 +5,15 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
 using System;
+using Vintagestory.API.MathTools;
 
 namespace ImmersiveCrafting
 {
   public class BlockBehaviorUseToolThenRemoveBlock : BlockBehavior
   {
+    bool spawnParticles;
     string actionlangcode;
+    string sound;
     int toolDurabilityCost;
     JsonItemStack outputStack;
     EnumTool[] toolTypes;
@@ -70,7 +73,9 @@ namespace ImmersiveCrafting
     {
       base.Initialize(properties);
 
+      spawnParticles = properties["spawnParticles"].AsBool();
       actionlangcode = properties["actionLangCode"].AsString();
+      sound = properties["sound"].AsString();
       toolDurabilityCost = properties["toolDurabilityCost"].AsInt();
       outputStack = properties["outputStack"].AsObject<JsonItemStack>();
       toolTypesStrTmp = properties["toolTypes"].AsArray<string>(new string[0]);
@@ -91,6 +96,8 @@ namespace ImmersiveCrafting
       {
         itemslot.Collectible.DamageItem(world, byPlayer.Entity, activeslot, toolDurabilityCost);
         CanSpawnItemStack(byPlayer.Entity, world, byPlayer, outputstack);
+        CanSpawnParticles(blockSel.Position, world, spawnParticles);
+        GetSound(byPlayer.Entity, world, sound);
         world.BlockAccessor.SetBlock(0, blockSel.Position);
         handling = EnumHandling.PreventDefault;
       }
@@ -113,6 +120,15 @@ namespace ImmersiveCrafting
       else return false;
     }
 
+    private void GetSound(EntityAgent byEntity, IWorldAccessor world, string sound) => world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
+
+    private static void CanSpawnParticles(BlockPos pos, IWorldAccessor world, bool spawnParticles)
+    {
+      if (spawnParticles)
+      {
+        world.SpawnCubeParticles(pos, pos.ToVec3d().Add(0.5, 0, 0.5), 0.5f, 80, 0.5f);
+      }
+    }
 
     private static void CanSpawnItemStack(EntityAgent byEntity, IWorldAccessor world, IPlayer byPlayer, ItemStack outputstack)
     {
