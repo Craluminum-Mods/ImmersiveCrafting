@@ -1,33 +1,86 @@
 # ImmersiveCrafting
+
 ---
-### Behavior: `IC_UseOnLiquidContainer`
-Currently it is limited to one liquidStack per item.
+
+Here is all the documentation that will someday be moved to another place.
+
+## `IC_UseOnLiquidContainer` collectible behavior
+
+Use this itemstack on liquid container with A liquid to output B itemstack.
 
 Example of implementation:
+
 ```json
 {
   "name": "IC_UseOnLiquidContainer",
   "properties": {
-    "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
-    "liquidStack": { "type": "item", "code": "waterportion" },
-    "actionLangCode": "ic_heldhelp-makedough",
-    "sound": "effect/water-fill",
+    "actionLangCode": "immersivecrafting:heldhelp-makedough",
     "consumeLiters": 1,
     "ingredientQuantity": 1,
+    "liquidStack": { "type": "item", "code": "waterportion" },
+    "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
+    "sound": "effect/water-fill",
     "spawnParticles": true
   }
 }
 ```
-1. **outputStack** (`ItemStack`) can be any item or block.
-2. **liquidStack** (`ItemStack`) is a liquid code (liters/quantity/stacksize wlll be ignored, use consumeLiters instead).
-3. **actionLangCode** (`string`) is a lang key for tooltip when holding the item.
-4. **sound** (`asset location`) is a path to sound which is played upon crafting.
-5. **consumeLiters** (`float`) defines how much of liquid to consume.
-6. **ingredientQuantity** (`int`) defines how much of ingredient to consume.
-7. **spawnParticles** (`bool`) if true, then will spawn particles under player based on the main ingredient
-----
-### Behavior `IC_SealCrock`
-Add this to any item/block you want to use to seal placed crocks.
+
+1. **actionLangCode** (`string`) interaction help when holding the itemstack.
+2. **consumeLiters** (`float`) consume the amount of liquid
+3. **ingredientQuantity** (`int`) defines how much of ingredient to consume.
+4. **liquidStack** (`ItemStack`) liquid itemstack (to set quantity use **consumeLiters** instead).
+5. **outputStack** (`ItemStack`) output itemstack.
+6. **sound** (`asset location`) the sound played when crafting.
+7. **spawnParticles** (`bool`) spawn particles based on the itemstack.
+
+Currently limited to one liquidStack per item.
+
+---
+
+## `IC_UseToolThenRemoveBlock` block behavior
+
+Use A tool on this block to output B itemstack.
+
+Example of implementation:
+
+```json
+{
+  "name": "IC_UseToolThenRemoveBlock",
+  "properties": {
+    "actionLangCode": "immersivecrafting:blockhelp-cutintoslices",
+    "outputStack": { "type": "item", "code": "fruit-pineapple", "quantity": 12 },
+    "spawnParticles": true,
+    "toolDurabilityCost": 1,
+    "toolTypes": ["Knife", "Sword"]
+  }
+}
+```
+
+1. **actionLangCode** (`string`) interaction help when looking at the block.
+2. **outputStack** (`ItemStack`) output itemstack.
+3. **sound** (`asset location`) the sound played when crafting.
+4. **spawnParticles** (`bool`) spawn particles based on the block
+5. **toolDurabilityCost** (`int`) consume tool durability.
+6. **tooltypes** (`string[]`) list of allowed tool types.
+
+Currently limited to one list of tool types per block.
+
+---
+
+## `IC_SealCrock` collectible behavior
+
+Use this itemstack to seal placed crocks.
+
 ```json
 { "name": "IC_SealCrock" }
+```
+
+---
+
+## `IC_WaxCheese` collectible behavior
+
+Use this itemstack to wax placed raw cheese.
+
+```json
+{ "name": "IC_WaxCheese" }
 ```
