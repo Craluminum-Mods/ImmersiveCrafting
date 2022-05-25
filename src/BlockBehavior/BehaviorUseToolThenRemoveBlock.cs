@@ -84,19 +84,14 @@ namespace ImmersiveCrafting
         outputstack = outputStack.ResolvedItemstack;
       }
 
-      ItemStack itemslot = byPlayer.InventoryManager.ActiveHotbarSlot?.Itemstack;
+      ItemSlot activeslot = byPlayer.InventoryManager.ActiveHotbarSlot;
+      ItemStack itemslot = activeslot?.Itemstack;
 
       if (CanUseHeldTool(toolTypes, itemslot))
       {
-        itemslot.Collectible.DamageItem(world, byPlayer.Entity, byPlayer.InventoryManager.ActiveHotbarSlot, toolDurabilityCost);
-
-        if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
-        {
-          world.SpawnItemEntity(outputstack, byPlayer.Entity.Pos.XYZ);
-        }
-
+        itemslot.Collectible.DamageItem(world, byPlayer.Entity, activeslot, toolDurabilityCost);
+        CanSpawnItemStack(byPlayer.Entity, world, byPlayer, outputstack);
         world.BlockAccessor.SetBlock(0, blockSel.Position);
-
         handling = EnumHandling.PreventDefault;
       }
       return true;
@@ -116,6 +111,15 @@ namespace ImmersiveCrafting
         return toolTypes.Contains<EnumTool>((EnumTool)tool);
       }
       else return false;
+    }
+
+
+    private static void CanSpawnItemStack(EntityAgent byEntity, IWorldAccessor world, IPlayer byPlayer, ItemStack outputstack)
+    {
+      if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
+      {
+        world.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
+      }
     }
   }
 }
