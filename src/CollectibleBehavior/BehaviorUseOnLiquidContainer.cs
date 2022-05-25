@@ -121,7 +121,7 @@ namespace ImmersiveCrafting
       if (blockCnt != null && blockCnt.IsTopOpened)
       {
         var liquid = blockCnt.GetContent(blockPos);
-        if (IsLiquidStack(liquid)
+        if (IsLiquidStack(liquid, liquidstack)
           && GetProps(liquid) != null
           && SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
         {
@@ -143,7 +143,7 @@ namespace ImmersiveCrafting
         if (bebarrel != null)
         {
           var liquid = bebarrel.Inventory[1].Itemstack;
-          if (IsLiquidStack(liquid)
+          if (IsLiquidStack(liquid, liquidstack)
             && GetProps(liquid) != null
             && SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
           {
@@ -171,7 +171,7 @@ namespace ImmersiveCrafting
         {
           blockCnt = gsslot.Itemstack.Block as BlockLiquidContainerBase;
           var liquid = blockCnt.GetContent(gsslot.Itemstack);
-          if (IsLiquidStack(liquid)
+          if (IsLiquidStack(liquid, liquidstack)
             && GetProps(liquid) != null
             && SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
           {
@@ -200,7 +200,7 @@ namespace ImmersiveCrafting
 
     private static WaterTightContainableProps GetProps(ItemStack liquid) => BlockLiquidContainerBase.GetContainableProps(liquid);
     private void GetSound(EntityAgent byEntity, IWorldAccessor world, string sound) => world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
-    private bool IsLiquidStack(ItemStack liquid) => liquid != null && liquid.Collectible.Equals(liquidStack);
+    private bool IsLiquidStack(ItemStack liquid, ItemStack liquidstack) => liquid != null && liquid.Collectible.Code.Equals(liquidstack.Collectible.Code);
     private int GetLiquidAsInt(WaterTightContainableProps props) => (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
     private ItemStack TryConsumeIngredient(ItemSlot slot) => slot.TakeOut(ingredientQuantity);
 
