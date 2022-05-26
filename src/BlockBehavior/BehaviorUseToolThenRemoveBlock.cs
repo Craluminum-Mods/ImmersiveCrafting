@@ -1,10 +1,10 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
-using System;
 using Vintagestory.API.MathTools;
 
 namespace ImmersiveCrafting
@@ -81,6 +81,12 @@ namespace ImmersiveCrafting
       toolTypesStrTmp = properties["toolTypes"].AsArray<string>(new string[0]);
     }
 
+    public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer, ref EnumHandling handling)
+    {
+      handling = EnumHandling.PassThrough;
+      return interactions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer, ref handling));
+    }
+
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
     {
       ItemStack outputstack = null;
@@ -95,19 +101,13 @@ namespace ImmersiveCrafting
       if (CanUseHeldTool(toolTypes, itemslot))
       {
         itemslot.Collectible.DamageItem(world, byPlayer.Entity, activeslot, toolDurabilityCost);
-        CanSpawnItemStack(byPlayer.Entity, world, byPlayer, outputstack);
-        CanSpawnParticles(blockSel.Position, world, spawnParticles);
-        GetSound(byPlayer.Entity, world, sound);
+        CanSpawnItemStack(byPlayer, outputstack);
+        CanSpawnParticles(byPlayer, spawnParticles);
+        GetSound(byPlayer, sound);
         world.BlockAccessor.SetBlock(0, blockSel.Position);
         handling = EnumHandling.PreventDefault;
       }
       return true;
-    }
-
-    public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer, ref EnumHandling handling)
-    {
-      handling = EnumHandling.PassThrough;
-      return interactions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer, ref handling));
     }
 
     private bool CanUseHeldTool(EnumTool[] toolTypes, ItemStack itemslot)
@@ -120,21 +120,26 @@ namespace ImmersiveCrafting
       else return false;
     }
 
-    private void GetSound(EntityAgent byEntity, IWorldAccessor world, string sound) => world.PlaySoundAt(new AssetLocation("sounds/" + sound), byEntity);
-
-    private static void CanSpawnParticles(BlockPos pos, IWorldAccessor world, bool spawnParticles)
+    private void GetSound(IPlayer byPlayer, string sound)
     {
-      if (spawnParticles)
-      {
-        world.SpawnCubeParticles(pos, pos.ToVec3d().Add(0.5, 0, 0.5), 0.5f, 30, 0.5f);
-      }
+      byPlayer.Entity.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byPlayer.Entity);
     }
 
-    private static void CanSpawnItemStack(EntityAgent byEntity, IWorldAccessor world, IPlayer byPlayer, ItemStack outputstack)
+    private static void CanSpawnItemStack(IPlayer byPlayer, ItemStack outputstack)
     {
       if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
       {
-        world.SpawnItemEntity(outputstack, byEntity.Pos.XYZ);
+        byPlayer.Entity.World.SpawnItemEntity(outputstack, byPlayer.Entity.Pos.XYZ);
+      }
+    }
+
+    private void CanSpawnParticles(IPlayer byPlayer, bool spawnParticles)
+    {
+      BlockPos pos = byPlayer.Entity.BlockSelection.Position;
+
+      if (spawnParticles)
+      {
+        byPlayer.Entity.World.SpawnCubeParticles(pos, pos.ToVec3d().Add(0.5, 0, 0.5), 0.5f, 30, 0.5f);
       }
     }
   }
