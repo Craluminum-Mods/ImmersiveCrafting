@@ -8,6 +8,8 @@ Here is all the documentation that will someday be moved to another place.
 
 Use this itemstack on liquid container with A liquid to output B itemstack.
 
+One behavior equals one recipe. To add multiple recipes, use the same behavior multiple times.
+
 Example of implementation:
 
 ```json
@@ -33,13 +35,13 @@ Example of implementation:
 6. **sound** (`asset location`) the sound played when crafting.
 7. **spawnParticles** (`bool`) spawn particles based on the itemstack.
 
-Currently limited to one liquidStack per item.
-
 ---
 
 ## `IC_UseToolThenRemoveBlock` block behavior
 
 Use A tool on this block to output B itemstack.
+
+One behavior equals one recipe. To add multiple recipes, use the same behavior multiple times.
 
 Example of implementation:
 
@@ -62,8 +64,6 @@ Example of implementation:
 4. **spawnParticles** (`bool`) spawn particles based on the block
 5. **toolDurabilityCost** (`int`) consume tool durability.
 6. **tooltypes** (`string[]`) list of allowed tool types.
-
-Currently limited to one list of tool types per block.
 
 ---
 
