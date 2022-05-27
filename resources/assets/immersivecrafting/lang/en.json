@@ -5,5 +5,6 @@
   "heldhelp-wet": "Wet (requires 1L of water)",
   "heldhelp-sealcrock": "Seal the crock",
   "heldhelp-waxcheese": "Wax the cheese",
-  "blockhelp-cutintoslices": "Cut into slices"
+  "blockhelp-cutinto4slices": "Cut into 4 slices",
+  "blockhelp-cutinto12slices": "Cut into 12 slices"
 }
