@@ -9,7 +9,7 @@ using Vintagestory.API.MathTools;
 
 namespace ImmersiveCrafting
 {
-  public class BlockBehaviorUseToolThenRemoveBlock : BlockBehavior
+  public class BlockBehaviorRemoveByTool : BlockBehavior
   {
     bool spawnParticles;
     string actionlangcode;
@@ -20,7 +20,7 @@ namespace ImmersiveCrafting
     string[] toolTypesStrTmp;
     WorldInteraction[] interactions;
 
-    public BlockBehaviorUseToolThenRemoveBlock(Block block) : base(block)
+    public BlockBehaviorRemoveByTool(Block block) : base(block)
     {
     }
 
@@ -38,13 +38,13 @@ namespace ImmersiveCrafting
         }
         catch (Exception)
         {
-          api.Logger.Warning("UseToolThenRemoveBlock behavior for block {0}, tool type {1} is not a valid tool type, will default to knife", block.Code, toolTypesStrTmp[i]);
+          api.Logger.Warning("RemoveByTool behavior for block {0}, tool type {1} is not a valid tool type, will default to knife", block.Code, toolTypesStrTmp[i]);
           toolTypes[i] = EnumTool.Knife;
         }
       }
       toolTypesStrTmp = null;
 
-      interactions = ObjectCacheUtil.GetOrCreate(api, "useToolThenRemoveBlockInteractions-" + actionlangcode, () =>
+      interactions = ObjectCacheUtil.GetOrCreate(api, "removeByToolInteractions-" + actionlangcode, () =>
       {
         List<ItemStack> toolStacks = new List<ItemStack>();
 

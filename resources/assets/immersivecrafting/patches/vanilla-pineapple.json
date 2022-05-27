@@ -4,7 +4,7 @@
     "path": "/behaviors",
     "value": [
       {
-        "name": "IC_UseToolThenRemoveBlock",
+        "name": "IC_RemoveByTool",
         "properties": {
           "outputStack": { "type": "item", "code": "fruit-pineapple", "quantity": 12 },
           "actionLangCode": "immersivecrafting:blockhelp-cutinto12slices",

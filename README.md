@@ -37,7 +37,7 @@ Example of implementation:
 
 ---
 
-## `IC_UseToolThenRemoveBlock` block behavior
+## `IC_RemoveByTool` block behavior
 
 Use A tool on this block to output B itemstack.
 
@@ -47,7 +47,7 @@ Example of implementation:
 
 ```json
 {
-  "name": "IC_UseToolThenRemoveBlock",
+  "name": "IC_RemoveByTool",
   "properties": {
     "actionLangCode": "immersivecrafting:blockhelp-cutintoslices",
     "outputStack": { "type": "item", "code": "fruit-pineapple", "quantity": 12 },

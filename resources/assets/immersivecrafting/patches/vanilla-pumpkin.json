@@ -5,7 +5,7 @@
     "value": {
       "*-4": [
         {
-          "name": "IC_UseToolThenRemoveBlock",
+          "name": "IC_RemoveByTool",
           "properties": {
             "outputStack": { "type": "item", "code": "vegetable-pumpkin", "quantity": 4 },
             "actionLangCode": "immersivecrafting:blockhelp-cutinto4slices",
