@@ -9,7 +9,7 @@
           "properties": {
             "outputStack": { "type": "item", "code": "expandedfoods:soyprep-wetshell", "quantity": 1 },
             "liquidStack": { "type": "item", "code": "game:waterportion" },
-            "actionLangCode": "immersivecrafting:heldhelp-wet",
+            "actionLangCode": "immersivecrafting:heldhelp-wet-1lwater",
             "sound": "effect/water-fill",
             "consumeLiters": 1,
             "ingredientQuantity": 1,
