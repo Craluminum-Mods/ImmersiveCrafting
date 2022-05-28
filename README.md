@@ -10,7 +10,7 @@ Use this itemstack on liquid container with A liquid to output B itemstack.
 
 One behavior equals one recipe. To add multiple recipes, use the same behavior multiple times.
 
-Example of implementation:
+Usage example:
 
 ```json
 {
@@ -34,6 +34,7 @@ Example of implementation:
 5. **outputStack** (`ItemStack`) output itemstack.
 6. **sound** (`asset location`) the sound played when crafting.
 7. **spawnParticles** (`bool`) spawn particles based on the itemstack.
+8. **forbidInteraction** (`bool`) forbid interaction for certain variants within one behavior.
 
 ---
 
@@ -43,17 +44,22 @@ Use A tool on this block to output B itemstack.
 
 One behavior equals one recipe. To add multiple recipes, use the same behavior multiple times.
 
-Example of implementation:
+Usage example:
 
 ```json
 {
   "name": "IC_RemoveByTool",
   "properties": {
-    "actionLangCode": "immersivecrafting:blockhelp-cutintoslices",
-    "outputStack": { "type": "item", "code": "fruit-pineapple", "quantity": 12 },
-    "spawnParticles": true,
+    "outputStack": { "type": "item", "code": "lime", "quantity": 1 },
+    "actionLangCode": "immersivecrafting:blockhelp-crushinto-lime",
     "toolDurabilityCost": 1,
-    "toolTypes": ["Knife", "Sword"]
+    "toolTypes": ["Hammer"],
+    "spawnParticles": true,
+    "forbidInteractionByType": {
+      "*-limestone-*": false,
+      "*-chalk-*": false,
+      "*": true
+    }
   }
 }
 ```
@@ -64,6 +70,7 @@ Example of implementation:
 4. **spawnParticles** (`bool`) spawn particles based on the block
 5. **toolDurabilityCost** (`int`) consume tool durability.
 6. **tooltypes** (`string[]`) list of allowed tool types.
+7. **forbidInteraction** (`bool`) forbid interaction for certain variants within one behavior.
 
 ---
 

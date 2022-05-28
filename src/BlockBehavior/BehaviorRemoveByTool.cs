@@ -19,6 +19,7 @@ namespace ImmersiveCrafting
     EnumTool[] toolTypes;
     string[] toolTypesStrTmp;
     WorldInteraction[] interactions;
+    bool forbidInteraction;
 
     public BlockBehaviorRemoveByTool(Block block) : base(block)
     {
@@ -79,16 +80,21 @@ namespace ImmersiveCrafting
       toolDurabilityCost = properties["toolDurabilityCost"].AsInt();
       outputStack = properties["outputStack"].AsObject<JsonItemStack>();
       toolTypesStrTmp = properties["toolTypes"].AsArray<string>(new string[0]);
+      forbidInteraction = properties["forbidInteraction"].AsBool();
     }
 
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer, ref EnumHandling handling)
     {
+      if (forbidInteraction) { return new WorldInteraction[0]; };
+
       handling = EnumHandling.PassThrough;
       return interactions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer, ref handling));
     }
 
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
     {
+      if (forbidInteraction) return true;
+
       ItemStack outputstack = null;
       if (outputStack.Resolve(world, "output stacks"))
       {

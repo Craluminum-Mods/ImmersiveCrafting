@@ -18,6 +18,7 @@ namespace ImmersiveCrafting
     JsonItemStack outputStack;
     JsonItemStack liquidStack;
     WorldInteraction[] interactions;
+    bool forbidInteraction;
 
     public CollectibleBehaviorUseOnLiquidContainer(CollectibleObject collObj) : base(collObj) { }
 
@@ -75,6 +76,7 @@ namespace ImmersiveCrafting
       ingredientQuantity = properties["ingredientQuantity"].AsInt();
       outputStack = properties["outputStack"].AsObject<JsonItemStack>();
       liquidStack = properties["liquidStack"].AsObject<JsonItemStack>();
+      forbidInteraction = properties["forbidInteraction"].AsBool();
     }
 
     public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
@@ -84,12 +86,15 @@ namespace ImmersiveCrafting
 
     public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot, ref EnumHandling handling)
     {
+      if (forbidInteraction) { return new WorldInteraction[0]; };
+
       handling = EnumHandling.PassThrough;
       return interactions.Append(base.GetHeldInteractionHelp(inSlot, ref handling));
     }
 
     public void Interact(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling, ref EnumHandling handling)
     {
+      if (forbidInteraction) return;
       if (blockSel == null) return;
 
       var block = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
