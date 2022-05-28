@@ -44,7 +44,7 @@ namespace ImmersiveCrafting
       }
       toolTypesStrTmp = null;
 
-      interactions = ObjectCacheUtil.GetOrCreate(api, "removeByToolInteractions-" + actionlangcode, () =>
+      interactions = ObjectCacheUtil.GetOrCreate(api, "removeByToolInteractions-" + actionlangcode + outputStack.Code, () =>
       {
         List<ItemStack> toolStacks = new List<ItemStack>();
 

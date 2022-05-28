@@ -27,7 +27,7 @@ namespace ImmersiveCrafting
 
       api.Event.EnqueueMainThreadTask(() =>
       {
-        interactions = ObjectCacheUtil.GetOrCreate(api, "liquidContainerInteractions" + actionlangcode, () =>
+        interactions = ObjectCacheUtil.GetOrCreate(api, "liquidContainerInteractions" + actionlangcode + outputStack.Code, () =>
         {
           List<ItemStack> lstacks = new List<ItemStack>();
           List<ItemStack> lbstacks = new List<ItemStack>();
