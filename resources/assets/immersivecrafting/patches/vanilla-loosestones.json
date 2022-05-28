@@ -1,0 +1,23 @@
+[
+  {
+    "op": "add",
+    "path": "/behaviors/-",
+    "value": {
+      "name": "IC_RemoveByTool",
+      "properties": {
+        "outputStack": { "type": "item", "code": "lime", "quantity": 1 },
+        "actionLangCode": "immersivecrafting:blockhelp-crushinto-lime",
+        "toolDurabilityCost": 1,
+        "toolTypes": ["Hammer"],
+        "spawnParticles": true,
+        "forbidInteractionByType": {
+          "*-limestone-*": false,
+          "*-chalk-*": false,
+          "*": true
+        }
+      }
+    },
+    "file": "game:blocktypes/stone/loosestones.json",
+    "side": "server"
+  }
+]
