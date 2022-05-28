@@ -6,7 +6,7 @@
       "name": "IC_RemoveByTool",
       "properties": {
         "outputStack": { "type": "item", "code": "lime", "quantity": 1 },
-        "actionLangCode": "immersivecrafting:blockhelp-crushinto-lime",
+        "actionLangCode": "immersivecrafting:blockhelp-crushinto-1lime",
         "toolDurabilityCost": 1,
         "toolTypes": ["Hammer"],
         "spawnParticles": true,
