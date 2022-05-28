@@ -8,7 +8,7 @@
         "outputStack": { "type": "item", "code": "bandage-alcoholed", "quantity": 1 },
         "liquidStack": { "type": "item", "code": "alcoholportion" },
         "actionLangCode": "immersivecrafting:heldhelp-soakbandage",
-        "sound": "effect/water-fill",
+        "sound": "sounds/effect/water-fill",
         "consumeLiters": 0.2,
         "ingredientQuantity": 1
       }

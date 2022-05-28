@@ -21,7 +21,7 @@ Usage example:
     "ingredientQuantity": 1,
     "liquidStack": { "type": "item", "code": "waterportion" },
     "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
-    "sound": "effect/water-fill",
+    "sound": "sounds/effect/water-fill",
     "spawnParticles": true
   }
 }
@@ -32,7 +32,7 @@ Usage example:
 3. **ingredientQuantity** (`int`) defines how much of ingredient to consume.
 4. **liquidStack** (`ItemStack`) liquid itemstack (to set quantity use **consumeLiters** instead).
 5. **outputStack** (`ItemStack`) output itemstack.
-6. **sound** (`asset location`) the sound played when crafting.
+6. **sound** (`AssetLocation`) sound played when interacting.
 7. **spawnParticles** (`bool`) spawn particles based on the itemstack.
 8. **forbidInteraction** (`bool`) forbid interaction for certain variants within one behavior.
 
@@ -66,7 +66,7 @@ Usage example:
 
 1. **actionLangCode** (`string`) interaction help when looking at the block.
 2. **outputStack** (`ItemStack`) output itemstack.
-3. **sound** (`asset location`) the sound played when crafting.
+3. **sound** (`AssetLocation`) sound played when interacting.
 4. **spawnParticles** (`bool`) spawn particles based on the block
 5. **toolDurabilityCost** (`int`) consume tool durability.
 6. **tooltypes** (`string[]`) list of allowed tool types.

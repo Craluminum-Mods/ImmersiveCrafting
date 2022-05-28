@@ -204,7 +204,7 @@ namespace ImmersiveCrafting
 
     private void GetSound(IPlayer byPlayer, string sound)
     {
-      byPlayer.Entity.World.PlaySoundAt(new AssetLocation("sounds/" + sound), byPlayer.Entity);
+      byPlayer.Entity.World.PlaySoundAt(new AssetLocation(sound), byPlayer.Entity);
     }
 
     private static void CanSpawnItemStack(IPlayer byPlayer, ItemStack outputstack)
