@@ -130,7 +130,7 @@ namespace ImmersiveCrafting
     {
       bool interactionSoundsEnabled = (bool)byPlayer.Entity.World.Config.TryGetBool("InteractionSoundsEnabled");
 
-      if (interactionSoundsEnabled)
+      if (interactionSoundsEnabled && sound != null)
       {
         byPlayer.Entity.World.PlaySoundAt(new AssetLocation(sound), byPlayer.Entity);
       }
