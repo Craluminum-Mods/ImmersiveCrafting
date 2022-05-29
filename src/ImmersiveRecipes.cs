@@ -1,8 +1,8 @@
+using ImmersiveCrafting.Configuration;
 using Vintagestory.API.Common;
 
 [assembly: ModInfo("ImmersiveCrafting",
   Authors = new[] { "Craluminum2413" })]
-
 
 namespace ImmersiveCrafting.Load
 {
@@ -11,6 +11,7 @@ namespace ImmersiveCrafting.Load
     public override void Start(ICoreAPI api)
     {
       base.Start(api);
+      ModConfig.ReadConfig(api);
       api.RegisterCollectibleBehaviorClass("IC_UseOnLiquidContainer", typeof(CollectibleBehaviorUseOnLiquidContainer));
       api.RegisterCollectibleBehaviorClass("IC_SealCrock", typeof(CollectibleBehaviorSealCrock));
       api.RegisterCollectibleBehaviorClass("IC_WaxCheese", typeof(CollectibleBehaviorWaxCheese));

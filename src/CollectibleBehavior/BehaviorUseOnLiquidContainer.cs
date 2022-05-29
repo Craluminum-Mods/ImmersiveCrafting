@@ -204,7 +204,12 @@ namespace ImmersiveCrafting
 
     private void GetSound(IPlayer byPlayer, string sound)
     {
-      byPlayer.Entity.World.PlaySoundAt(new AssetLocation(sound), byPlayer.Entity);
+      bool interactionSoundsEnabled = (bool)byPlayer.Entity.World.Config.TryGetBool("InteractionSoundsEnabled");
+
+      if (interactionSoundsEnabled)
+      {
+        byPlayer.Entity.World.PlaySoundAt(new AssetLocation(sound), byPlayer.Entity);
+      }
     }
 
     private static void CanSpawnItemStack(IPlayer byPlayer, ItemStack outputstack)
@@ -217,7 +222,9 @@ namespace ImmersiveCrafting
 
     private static void CanSpawnParticles(IPlayer byPlayer, bool spawnParticles)
     {
-      if (spawnParticles)
+      bool interactionParticlesEnabled = (bool)byPlayer.Entity.World.Config.TryGetBool("InteractionParticlesEnabled");
+
+      if (spawnParticles && interactionParticlesEnabled)
       {
         byPlayer.Entity.World.SpawnCubeParticles(byPlayer.Entity.Pos.XYZ, byPlayer.InventoryManager.ActiveHotbarSlot.Itemstack.Clone(), 0.1f, 10, 0.3f);
       }
