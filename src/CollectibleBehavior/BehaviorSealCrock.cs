@@ -10,9 +10,7 @@ namespace ImmersiveCrafting
   {
     WorldInteraction[] interactions;
 
-    public CollectibleBehaviorSealCrock(CollectibleObject collObj) : base(collObj)
-    {
-    }
+    public CollectibleBehaviorSealCrock(CollectibleObject collObj) : base(collObj) { }
 
     public override void OnLoaded(ICoreAPI api)
     {
@@ -22,7 +20,7 @@ namespace ImmersiveCrafting
       {
         interactions = ObjectCacheUtil.GetOrCreate(api, "crockInteractions", () =>
         {
-          List<ItemStack> crockStacks = new List<ItemStack>();
+          List<ItemStack> crockStacks = new();
 
           foreach (CollectibleObject obj in api.World.Collectibles)
           {
@@ -66,11 +64,11 @@ namespace ImmersiveCrafting
       if (block is BlockGroundStorage)
       {
         var begs = blockEntity as BlockEntityGroundStorage;
-        ItemSlot gsslot = begs.GetSlotAt(blockSel);
-        if (gsslot == null || gsslot.Empty) return;
-        ItemStack crock = gsslot.Itemstack;
+        var gsslot = begs.GetSlotAt(blockSel);
+        if (gsslot?.Empty != false) return;
+        var crock = gsslot.Itemstack;
 
-        if (crock?.Collectible is BlockCrock && crock.Attributes.GetBool("sealed") == false)
+        if (crock?.Collectible is BlockCrock && !crock.Attributes.GetBool("sealed"))
         {
           crock.Attributes.SetBool("sealed", true);
           slot.TakeOut(1);

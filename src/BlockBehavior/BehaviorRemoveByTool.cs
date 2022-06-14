@@ -21,9 +21,7 @@ namespace ImmersiveCrafting
     WorldInteraction[] interactions;
     bool forbidInteraction;
 
-    public BlockBehaviorRemoveByTool(Block block) : base(block)
-    {
-    }
+    public BlockBehaviorRemoveByTool(Block block) : base(block) { }
 
     public override void OnLoaded(ICoreAPI api)
     {
@@ -47,12 +45,12 @@ namespace ImmersiveCrafting
 
       interactions = ObjectCacheUtil.GetOrCreate(api, "removeByToolInteractions-" + actionlangcode + outputStack.Code, () =>
       {
-        List<ItemStack> toolStacks = new List<ItemStack>();
+        List<ItemStack> toolStacks = new();
 
         foreach (CollectibleObject collObj in api.World.Collectibles)
         {
           var tool = collObj.Tool;
-          if (tool != null && toolTypes.Contains<EnumTool>((EnumTool)tool))
+          if (tool != null && toolTypes.Contains((EnumTool)tool))
           {
             toolStacks.Add(new ItemStack(collObj));
           }
@@ -79,13 +77,13 @@ namespace ImmersiveCrafting
       sound = properties["sound"].AsString();
       toolDurabilityCost = properties["toolDurabilityCost"].AsInt();
       outputStack = properties["outputStack"].AsObject<JsonItemStack>();
-      toolTypesStrTmp = properties["toolTypes"].AsArray<string>(new string[0]);
+      toolTypesStrTmp = properties["toolTypes"].AsArray(new string[0]);
       forbidInteraction = properties["forbidInteraction"].AsBool();
     }
 
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer, ref EnumHandling handling)
     {
-      if (forbidInteraction) { return new WorldInteraction[0]; };
+      if (forbidInteraction) { return new WorldInteraction[0]; }
 
       handling = EnumHandling.PassThrough;
       return interactions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer, ref handling));
@@ -121,9 +119,9 @@ namespace ImmersiveCrafting
       var tool = itemslot?.Collectible?.Tool;
       if (itemslot?.Collectible.GetMaxDurability(itemslot) >= toolDurabilityCost && tool != null)
       {
-        return toolTypes.Contains<EnumTool>((EnumTool)tool);
+        return toolTypes.Contains((EnumTool)tool);
       }
-      else return false;
+      return false;
     }
 
     private void GetSound(IPlayer byPlayer, string sound)

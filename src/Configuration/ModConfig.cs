@@ -36,9 +36,9 @@ namespace ImmersiveCrafting.Configuration
       api.LoadModConfig<ImmersiveCraftingConfig>(jsonConfig);
 
     private static void GenerateConfig(ICoreAPI api) =>
-      api.StoreModConfig<ImmersiveCraftingConfig>(new ImmersiveCraftingConfig(), jsonConfig);
+      api.StoreModConfig(new ImmersiveCraftingConfig(), jsonConfig);
 
     private static void GenerateConfig(ICoreAPI api, ImmersiveCraftingConfig previousConfig) =>
-      api.StoreModConfig<ImmersiveCraftingConfig>(new ImmersiveCraftingConfig(previousConfig), jsonConfig);
+      api.StoreModConfig(new ImmersiveCraftingConfig(previousConfig), jsonConfig);
   }
 }

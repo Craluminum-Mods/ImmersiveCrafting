@@ -1,4 +1,3 @@
-using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
@@ -10,10 +9,7 @@ namespace ImmersiveCrafting
   {
     WorldInteraction[] interactions;
 
-
-    public CollectibleBehaviorWaxCheese(CollectibleObject collObj) : base(collObj)
-    {
-    }
+    public CollectibleBehaviorWaxCheese(CollectibleObject collObj) : base(collObj) { }
 
     public override void OnLoaded(ICoreAPI api)
     {
