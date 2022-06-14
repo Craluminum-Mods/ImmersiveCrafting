@@ -30,8 +30,8 @@ namespace ImmersiveCrafting
       {
         interactions = ObjectCacheUtil.GetOrCreate(api, "liquidContainerInteractions" + actionlangcode + outputStack.Code, () =>
         {
-          List<ItemStack> lstacks = new List<ItemStack>();
-          List<ItemStack> lbstacks = new List<ItemStack>();
+          List<ItemStack> lstacks = new();
+          List<ItemStack> lbstacks = new();
 
           foreach (CollectibleObject obj in api.World.Collectibles)
           {
@@ -86,7 +86,7 @@ namespace ImmersiveCrafting
 
     public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot, ref EnumHandling handling)
     {
-      if (forbidInteraction) { return new WorldInteraction[0]; };
+      if (forbidInteraction) { return new WorldInteraction[0]; }
 
       handling = EnumHandling.PassThrough;
       return interactions.Append(base.GetHeldInteractionHelp(inSlot, ref handling));
@@ -97,11 +97,8 @@ namespace ImmersiveCrafting
       if (forbidInteraction) return;
       if (blockSel == null) return;
 
-      var block = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
-      var blockEntity = byEntity.World.BlockAccessor.GetBlockEntity(blockSel.Position);
-
       IPlayer byPlayer = null;
-      if (byEntity is EntityPlayer) byPlayer = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
+      if (byEntity is EntityPlayer player) byPlayer = byEntity.World.PlayerByUid(player.PlayerUID);
       if (byPlayer == null) return;
 
       ItemStack outputstack = null;
@@ -111,91 +108,91 @@ namespace ImmersiveCrafting
       }
 
       ItemStack liquidstack = null;
-      if (liquidStack.Resolve(byEntity.World, "output stacks"))
+      if (liquidStack.Resolve(byEntity.World, "liquid stacks"))
       {
         liquidstack = liquidStack.ResolvedItemstack;
       }
 
+      var block = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
+      var blockEntity = byEntity.World.BlockAccessor.GetBlockEntity(blockSel.Position);
       var blockCnt = block as BlockLiquidContainerBase;
+      var begs = blockEntity as BlockEntityGroundStorage;
+      var gsslot = begs?.GetSlotAt(blockSel);
 
-      if (blockCnt != null && blockCnt.IsTopOpened)
+      if (blockCnt?.IsTopOpened == true)
       {
         var liquid = blockCnt.GetContent(blockSel.Position);
-        if (IsLiquidStack(liquid, liquidstack)
-          && GetProps(liquid) != null
-          && SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
+        if (!IsLiquidStack(liquid, liquidstack)
+          || GetProps(liquid) == null
+          || !SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
         {
-          liquid = blockCnt.TryTakeContent(blockSel.Position, GetLiquidAsInt(GetProps(liquid)));
-          if (liquid != null)
-          {
-            CanSpawnItemStack(byPlayer, outputstack);
-            CanSpawnParticles(byPlayer, spawnParticles);
-            GetSound(byPlayer, sound);
-            slot.TakeOut(ingredientQuantity);
-            slot.MarkDirty();
-            handHandling = EnumHandHandling.PreventDefault;
-          }
+          return;
         }
-      }
-      else if (block is BlockBarrel)
-      {
-        var bebarrel = blockEntity as BlockEntityBarrel;
-        if (bebarrel != null)
-        {
-          var liquid = bebarrel.Inventory[1].Itemstack;
-          if (IsLiquidStack(liquid, liquidstack)
-            && GetProps(liquid) != null
-            && SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
-          {
-            liquid = bebarrel.Inventory[1].TakeOut(GetLiquidAsInt(GetProps(liquid)));
-            if (liquid != null)
-            {
-              CanSpawnItemStack(byPlayer, outputstack);
-              CanSpawnParticles(byPlayer, spawnParticles);
-              GetSound(byPlayer, sound);
-              slot.TakeOut(ingredientQuantity);
-              bebarrel.MarkDirty(true);
-              slot.MarkDirty();
-              handHandling = EnumHandHandling.PreventDefault;
-            }
-          }
-        }
-      }
-      else if (block is BlockGroundStorage)
-      {
-        var begs = blockEntity as BlockEntityGroundStorage;
-        ItemSlot gsslot = begs.GetSlotAt(blockSel);
-        if (gsslot == null || gsslot.Empty) return;
 
-        if (gsslot.Itemstack.Collectible is BlockLiquidContainerBase)
+        liquid = blockCnt.TryTakeContent(blockSel.Position, GetLiquidAsInt(GetProps(liquid)));
+        if (liquid == null) return;
+
+        CanSpawnItemStack(byPlayer, outputstack);
+        CanSpawnParticles(byPlayer, spawnParticles);
+        GetSound(byPlayer, sound);
+        slot.TakeOut(ingredientQuantity);
+        slot.MarkDirty();
+        handHandling = EnumHandHandling.PreventDefault;
+      }
+
+      if (block is BlockBarrel && blockEntity is BlockEntityBarrel bebarrel)
+      {
+        var liquid = bebarrel.Inventory[1].Itemstack;
+        if (!IsLiquidStack(liquid, liquidstack)
+          || GetProps(liquid) == null
+          || !SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
         {
-          blockCnt = gsslot.Itemstack.Block as BlockLiquidContainerBase;
-          var liquid = blockCnt.GetContent(gsslot.Itemstack);
-          if (IsLiquidStack(liquid, liquidstack)
-            && GetProps(liquid) != null
-            && SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
-          {
-            liquid = blockCnt.TryTakeContent(gsslot.Itemstack, GetLiquidAsInt(GetProps(liquid)));
-            if (liquid != null)
-            {
-              CanSpawnItemStack(byPlayer, outputstack);
-              CanSpawnParticles(byPlayer, spawnParticles);
-              GetSound(byPlayer, sound);
-              slot.TakeOut(ingredientQuantity);
-              slot.MarkDirty();
-              gsslot.MarkDirty();
-              begs.updateMeshes();
-              begs.MarkDirty(true);
-              handHandling = EnumHandHandling.PreventDefault;
-            }
-          }
+          return;
         }
+
+        liquid = bebarrel.Inventory[1].TakeOut(GetLiquidAsInt(GetProps(liquid)));
+        if (liquid == null) return;
+
+        CanSpawnItemStack(byPlayer, outputstack);
+        CanSpawnParticles(byPlayer, spawnParticles);
+        GetSound(byPlayer, sound);
+        slot.TakeOut(ingredientQuantity);
+        bebarrel.MarkDirty(true);
+        slot.MarkDirty();
+        handHandling = EnumHandHandling.PreventDefault;
+      }
+
+      if (block is BlockGroundStorage)
+      {
+        if (gsslot?.Empty != false || gsslot.Itemstack.Collectible is not BlockLiquidContainerBase) return;
+
+        blockCnt = gsslot.Itemstack.Block as BlockLiquidContainerBase;
+        var liquid = blockCnt.GetContent(gsslot.Itemstack);
+        if (!IsLiquidStack(liquid, liquidstack)
+          || GetProps(liquid) == null
+          || !SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
+        {
+          return;
+        }
+
+        liquid = blockCnt.TryTakeContent(gsslot.Itemstack, GetLiquidAsInt(GetProps(liquid)));
+        if (liquid == null) return;
+
+        CanSpawnItemStack(byPlayer, outputstack);
+        CanSpawnParticles(byPlayer, spawnParticles);
+        GetSound(byPlayer, sound);
+        slot.TakeOut(ingredientQuantity);
+        slot.MarkDirty();
+        gsslot.MarkDirty();
+        begs.updateMeshes();
+        begs.MarkDirty(true);
+        handHandling = EnumHandHandling.PreventDefault;
       }
     }
 
     private static WaterTightContainableProps GetProps(ItemStack liquid) => BlockLiquidContainerBase.GetContainableProps(liquid);
-    private static bool IsLiquidStack(ItemStack liquid, ItemStack liquidstack) => liquid != null && liquid.Collectible.Code.Equals(liquidstack.Collectible.Code);
-    private int GetLiquidAsInt(WaterTightContainableProps props) => (int)Math.Ceiling((takeQuantity) * props.ItemsPerLitre);
+    private static bool IsLiquidStack(ItemStack liquid, ItemStack liquidstack) => liquid?.Collectible.Code.Equals(liquidstack.Collectible.Code) == true;
+    private int GetLiquidAsInt(WaterTightContainableProps props) => (int)Math.Ceiling(takeQuantity * props.ItemsPerLitre);
 
     private bool SatisfiesQuantity(ItemSlot slot, ItemStack liquid, int takeAmount)
     {
