@@ -119,7 +119,7 @@ namespace ImmersiveCrafting
     private bool CanUseHeldTool(EnumTool[] toolTypes, ItemStack itemslot)
     {
       var tool = itemslot?.Collectible?.Tool;
-      if (itemslot?.Collectible.GetDurability(itemslot) >= toolDurabilityCost && tool != null)
+      if (itemslot?.Collectible.GetMaxDurability(itemslot) >= toolDurabilityCost && tool != null)
       {
         return toolTypes.Contains<EnumTool>((EnumTool)tool);
       }
