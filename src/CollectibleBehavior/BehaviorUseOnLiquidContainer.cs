@@ -113,15 +113,16 @@ namespace ImmersiveCrafting
         liquidstack = liquidStack.ResolvedItemstack;
       }
 
-      var block = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
-      var blockEntity = byEntity.World.BlockAccessor.GetBlockEntity(blockSel.Position);
+      var pos = blockSel.Position;
+      var block = byEntity.World.BlockAccessor.GetBlock(pos);
+      var blockEntity = byEntity.World.BlockAccessor.GetBlockEntity(pos);
       var blockCnt = block as BlockLiquidContainerBase;
       var begs = blockEntity as BlockEntityGroundStorage;
       var gsslot = begs?.GetSlotAt(blockSel);
 
       if (blockCnt?.IsTopOpened == true)
       {
-        var liquid = blockCnt.GetContent(blockSel.Position);
+        var liquid = blockCnt.GetContent(pos);
         if (!IsLiquidStack(liquid, liquidstack)
           || GetProps(liquid) == null
           || !SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
@@ -129,7 +130,7 @@ namespace ImmersiveCrafting
           return;
         }
 
-        liquid = blockCnt.TryTakeContent(blockSel.Position, GetLiquidAsInt(GetProps(liquid)));
+        liquid = blockCnt.TryTakeContent(pos, GetLiquidAsInt(GetProps(liquid)));
         if (liquid == null) return;
 
         CanSpawnItemStack(byPlayer, outputstack);
