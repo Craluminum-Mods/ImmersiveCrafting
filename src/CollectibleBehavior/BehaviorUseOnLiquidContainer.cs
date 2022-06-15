@@ -13,7 +13,7 @@ namespace ImmersiveCrafting
     bool spawnParticles;
     string actionlangcode;
     string sound;
-    float takeQuantity;
+    float consumeLiters;
     int ingredientQuantity;
     JsonItemStack outputStack;
     JsonItemStack liquidStack;
@@ -72,7 +72,7 @@ namespace ImmersiveCrafting
       spawnParticles = properties["spawnParticles"].AsBool();
       actionlangcode = properties["actionLangCode"].AsString();
       sound = properties["sound"].AsString();
-      takeQuantity = properties["consumeLiters"].AsFloat();
+      consumeLiters = properties["consumeLiters"].AsFloat();
       ingredientQuantity = properties["ingredientQuantity"].AsInt();
       outputStack = properties["outputStack"].AsObject<JsonItemStack>();
       liquidStack = properties["liquidStack"].AsObject<JsonItemStack>();
@@ -193,7 +193,7 @@ namespace ImmersiveCrafting
 
     private static WaterTightContainableProps GetProps(ItemStack liquid) => BlockLiquidContainerBase.GetContainableProps(liquid);
     private static bool IsLiquidStack(ItemStack liquid, ItemStack liquidstack) => liquid?.Collectible.Code.Equals(liquidstack.Collectible.Code) == true;
-    private int GetLiquidAsInt(WaterTightContainableProps props) => (int)Math.Ceiling(takeQuantity * props.ItemsPerLitre);
+    private int GetLiquidAsInt(WaterTightContainableProps props) => (int)Math.Ceiling(consumeLiters * props.ItemsPerLitre);
 
     private bool SatisfiesQuantity(ItemSlot slot, ItemStack liquid, int takeAmount)
     {
