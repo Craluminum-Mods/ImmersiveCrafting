@@ -16,7 +16,6 @@ Usage example:
 {
   "name": "IC_UseOnLiquidContainer",
   "properties": {
-    "actionLangCode": "immersivecrafting:heldhelp-makedough",
     "consumeLiters": 1,
     "ingredientQuantity": 1,
     "liquidStack": { "type": "item", "code": "waterportion" },
@@ -27,14 +26,13 @@ Usage example:
 }
 ```
 
-1. **actionLangCode** (`string`) interaction help when holding the itemstack.
-2. **consumeLiters** (`float`) consume the amount of liquid
-3. **ingredientQuantity** (`int`) defines how much of ingredient to consume.
-4. **liquidStack** (`ItemStack`) liquid itemstack (to set quantity use **consumeLiters** instead).
-5. **outputStack** (`ItemStack`) output itemstack.
-6. **sound** (`AssetLocation`) sound played when interacting.
-7. **spawnParticles** (`bool`) spawn particles based on the itemstack.
-8. **forbidInteraction** (`bool`) forbid interaction for certain variants within one behavior.
+1. **consumeLiters** (`float`) consume the amount of liquid
+2. **ingredientQuantity** (`int`) defines how much of ingredient to consume.
+3. **liquidStack** (`ItemStack`) liquid itemstack (to set quantity use **consumeLiters** instead).
+4. **outputStack** (`ItemStack`) output itemstack.
+5. **sound** (`AssetLocation`) sound played when interacting.
+6. **spawnParticles** (`bool`) spawn particles based on the itemstack.
+7. **forbidInteraction** (`bool`) forbid interaction for certain variants within one behavior.
 
 ---
 
