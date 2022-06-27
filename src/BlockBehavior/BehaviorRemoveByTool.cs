@@ -5,12 +5,14 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
-using Vintagestory.API.MathTools;
+using ImmersiveCrafting.Utils;
 
 namespace ImmersiveCrafting
 {
   public class BlockBehaviorRemoveByTool : BlockBehavior
   {
+    readonly ImmersiveCraftingUtils Utils = new();
+
     bool spawnParticles;
     string actionlangcode;
     string sound;
@@ -105,9 +107,9 @@ namespace ImmersiveCrafting
       if (CanUseHeldTool(toolTypes, itemslot))
       {
         itemslot.Collectible.DamageItem(world, byPlayer.Entity, activeslot, toolDurabilityCost);
-        CanSpawnItemStack(byPlayer, outputstack);
-        CanSpawnParticles(byPlayer, spawnParticles);
-        GetSound(byPlayer, sound);
+        Utils.CanSpawnItemStack(byPlayer, outputstack);
+        Utils.CanSpawnParticles(byPlayer, spawnParticles, byPlayer.Entity.BlockSelection.Position);
+        Utils.GetSound(byPlayer, sound);
         world.BlockAccessor.SetBlock(0, blockSel.Position);
         handling = EnumHandling.PreventDefault;
       }
@@ -122,35 +124,6 @@ namespace ImmersiveCrafting
         return toolTypes.Contains((EnumTool)tool);
       }
       return false;
-    }
-
-    private void GetSound(IPlayer byPlayer, string sound)
-    {
-      bool interactionSoundsEnabled = (bool)byPlayer.Entity.World.Config.TryGetBool("InteractionSoundsEnabled");
-
-      if (interactionSoundsEnabled && sound != null)
-      {
-        byPlayer.Entity.World.PlaySoundAt(new AssetLocation(sound), byPlayer.Entity);
-      }
-    }
-
-    private static void CanSpawnItemStack(IPlayer byPlayer, ItemStack outputstack)
-    {
-      if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
-      {
-        byPlayer.Entity.World.SpawnItemEntity(outputstack, byPlayer.Entity.Pos.XYZ);
-      }
-    }
-
-    private void CanSpawnParticles(IPlayer byPlayer, bool spawnParticles)
-    {
-      BlockPos pos = byPlayer.Entity.BlockSelection.Position;
-      bool interactionParticlesEnabled = (bool)byPlayer.Entity.World.Config.TryGetBool("InteractionParticlesEnabled");
-
-      if (spawnParticles && interactionParticlesEnabled)
-      {
-        byPlayer.Entity.BlockSelection.Block.SpawnBlockBrokenParticles(pos);
-      }
     }
   }
 }

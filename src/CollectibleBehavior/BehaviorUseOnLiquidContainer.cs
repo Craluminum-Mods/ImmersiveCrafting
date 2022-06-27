@@ -1,15 +1,19 @@
-using System;
+using System.Text;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
+using ImmersiveCrafting.Utils;
 
 namespace ImmersiveCrafting
 {
   public class CollectibleBehaviorUseOnLiquidContainer : CollectibleBehavior
   {
+    readonly ImmersiveCraftingUtils Utils = new();
+
     bool spawnParticles;
     string sound;
     float consumeLiters;
@@ -124,19 +128,19 @@ namespace ImmersiveCrafting
       if (blockCnt?.IsTopOpened == true)
       {
         var liquid = blockCnt.GetContent(pos);
-        if (!IsLiquidStack(liquid, liquidstack)
-          || GetProps(liquid) == null
-          || !SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
+        if (liquid?.Collectible.Code.Equals(liquidstack.Collectible.Code) == false
+          || BlockLiquidContainerBase.GetContainableProps(liquid) == null
+          || !Utils.SatisfiesQuantity(slot, liquid, Utils.GetLiquidAsInt(BlockLiquidContainerBase.GetContainableProps(liquid), consumeLiters), ingredientQuantity))
         {
           return;
         }
 
-        liquid = blockCnt.TryTakeContent(pos, GetLiquidAsInt(GetProps(liquid)));
+        liquid = blockCnt.TryTakeContent(pos, Utils.GetLiquidAsInt(BlockLiquidContainerBase.GetContainableProps(liquid), consumeLiters));
         if (liquid == null) return;
 
-        CanSpawnItemStack(byPlayer, outputstack);
-        CanSpawnParticles(byPlayer, spawnParticles);
-        GetSound(byPlayer, sound);
+        Utils.CanSpawnItemStack(byPlayer, outputstack);
+        Utils.CanSpawnParticles(byPlayer, spawnParticles);
+        Utils.GetSound(byPlayer, sound);
         slot.TakeOut(ingredientQuantity);
         slot.MarkDirty();
         handHandling = EnumHandHandling.PreventDefault;
@@ -145,19 +149,19 @@ namespace ImmersiveCrafting
       if (block is BlockBarrel && blockEntity is BlockEntityBarrel bebarrel)
       {
         var liquid = bebarrel.Inventory[1].Itemstack;
-        if (!IsLiquidStack(liquid, liquidstack)
-          || GetProps(liquid) == null
-          || !SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
+        if (liquid?.Collectible.Code.Equals(liquidstack.Collectible.Code) == false
+          || BlockLiquidContainerBase.GetContainableProps(liquid) == null
+          || !Utils.SatisfiesQuantity(slot, liquid, Utils.GetLiquidAsInt(BlockLiquidContainerBase.GetContainableProps(liquid), consumeLiters), ingredientQuantity))
         {
           return;
         }
 
-        liquid = bebarrel.Inventory[1].TakeOut(GetLiquidAsInt(GetProps(liquid)));
+        liquid = bebarrel.Inventory[1].TakeOut(Utils.GetLiquidAsInt(BlockLiquidContainerBase.GetContainableProps(liquid), consumeLiters));
         if (liquid == null) return;
 
-        CanSpawnItemStack(byPlayer, outputstack);
-        CanSpawnParticles(byPlayer, spawnParticles);
-        GetSound(byPlayer, sound);
+        Utils.CanSpawnItemStack(byPlayer, outputstack);
+        Utils.CanSpawnParticles(byPlayer, spawnParticles);
+        Utils.GetSound(byPlayer, sound);
         slot.TakeOut(ingredientQuantity);
         bebarrel.MarkDirty(true);
         slot.MarkDirty();
@@ -170,19 +174,19 @@ namespace ImmersiveCrafting
 
         blockCnt = gsslot.Itemstack.Block as BlockLiquidContainerBase;
         var liquid = blockCnt.GetContent(gsslot.Itemstack);
-        if (!IsLiquidStack(liquid, liquidstack)
-          || GetProps(liquid) == null
-          || !SatisfiesQuantity(slot, liquid, GetLiquidAsInt(GetProps(liquid))))
+        if (liquid?.Collectible.Code.Equals(liquidstack.Collectible.Code) == false
+          || BlockLiquidContainerBase.GetContainableProps(liquid) == null
+          || !Utils.SatisfiesQuantity(slot, liquid, Utils.GetLiquidAsInt(BlockLiquidContainerBase.GetContainableProps(liquid), consumeLiters), ingredientQuantity))
         {
           return;
         }
 
-        liquid = blockCnt.TryTakeContent(gsslot.Itemstack, GetLiquidAsInt(GetProps(liquid)));
+        liquid = blockCnt.TryTakeContent(gsslot.Itemstack, Utils.GetLiquidAsInt(BlockLiquidContainerBase.GetContainableProps(liquid), consumeLiters));
         if (liquid == null) return;
 
-        CanSpawnItemStack(byPlayer, outputstack);
-        CanSpawnParticles(byPlayer, spawnParticles);
-        GetSound(byPlayer, sound);
+        Utils.CanSpawnItemStack(byPlayer, outputstack);
+        Utils.CanSpawnParticles(byPlayer, spawnParticles);
+        Utils.GetSound(byPlayer, sound);
         slot.TakeOut(ingredientQuantity);
         slot.MarkDirty();
         gsslot.MarkDirty();
@@ -193,7 +197,7 @@ namespace ImmersiveCrafting
     }
 
     public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
-      {
+    {
       var liquidDsc = Utils.GetLiquidDescription(liquidStack, consumeLiters);
       var outputDsc = Utils.GetOutputDescription(outputStack);
       base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
