@@ -4,5 +4,6 @@
   "blockhelp-cutinto-4slices": "Разрезать на 4 ломтика",
   "blockhelp-cutinto-12slices": "Разрезать на 12 ломтиков",
   "blockhelp-crushinto-1lime": "Раздробить в 1 известь",
+  "Use on {0} to get {1}": "\nИспользовать на: \"{0}\". \nЧтобы получить: \"{1}\"",
   "Make {0}": "Сделать: {0}"
 }
