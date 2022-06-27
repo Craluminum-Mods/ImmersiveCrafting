@@ -1,11 +1,8 @@
 {
-  "heldhelp-makedough": "Сделать тесто (требуется 1 л воды)",
-  "heldhelp-makemortar": "Сделать 8 шт. строительного раствора (требуется 1 л гашеной извести)",
-  "heldhelp-soakbandage": "Пропитать спиртом (требуется 0.2 л аквавита)",
-  "heldhelp-wet-1lwater": "Намочить (требуется 1 л воды)",
   "heldhelp-sealcrock": "Запечатать горшок",
   "heldhelp-waxcheese": "Покрыть сыр воском",
   "blockhelp-cutinto-4slices": "Разрезать на 4 ломтика",
   "blockhelp-cutinto-12slices": "Разрезать на 12 ломтиков",
+  "blockhelp-crushinto-1lime": "Раздробить в 1 известь",
   "Make {0}": "Сделать: {0}"
 }
