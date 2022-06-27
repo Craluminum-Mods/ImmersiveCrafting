@@ -8,7 +8,6 @@
         "properties": {
           "outputStack": { "type": "item", "code": "potatoes:cornbreaddough-corn", "quantity": 1 },
           "liquidStack": { "type": "item", "code": "game:waterportion" },
-          "actionLangCode": "immersivecrafting:heldhelp-makedough",
           "sound": "sounds/effect/water-fill",
           "consumeLiters": 1,
           "ingredientQuantity": 1,

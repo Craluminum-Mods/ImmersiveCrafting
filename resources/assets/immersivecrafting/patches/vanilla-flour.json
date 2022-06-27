@@ -7,7 +7,6 @@
       "properties": {
         "outputStack": { "type": "item", "code": "dough-{type}", "quantity": 1 },
         "liquidStack": { "type": "item", "code": "waterportion" },
-        "actionLangCode": "immersivecrafting:heldhelp-makedough",
         "sound": "sounds/effect/water-fill",
         "consumeLiters": 1,
         "ingredientQuantity": 1,
