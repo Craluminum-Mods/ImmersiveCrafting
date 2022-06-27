@@ -7,6 +7,5 @@
   "heldhelp-waxcheese": "Wax the cheese",
   "blockhelp-cutinto-4slices": "Cut into 4 slices",
   "blockhelp-cutinto-12slices": "Cut into 12 slices",
-  "heldhelp-coverwithrubber": "Cover with rubber (requires 1L of liquid rubber)",
-  "blockhelp-crushinto-1lime": "Crush into 1 lime"
+  "Make {0}": "Make: {0}"
 }
