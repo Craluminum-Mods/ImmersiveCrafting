@@ -11,7 +11,6 @@ namespace ImmersiveCrafting
   public class CollectibleBehaviorUseOnLiquidContainer : CollectibleBehavior
   {
     bool spawnParticles;
-    string actionlangcode;
     string sound;
     float consumeLiters;
     int ingredientQuantity;
@@ -28,7 +27,7 @@ namespace ImmersiveCrafting
 
       api.Event.EnqueueMainThreadTask(() =>
       {
-        interactions = ObjectCacheUtil.GetOrCreate(api, "useOnLiquidContainerInteractions" + actionlangcode + outputStack.Code, () =>
+        interactions = ObjectCacheUtil.GetOrCreate(api, "useOnLiquidContainerInteractions" + outputStack.Code, () =>
         {
           List<ItemStack> liquidContainerStacks = new();
           List<ItemStack> barrelStacks = new();
@@ -45,17 +44,20 @@ namespace ImmersiveCrafting
             }
           }
 
+          var outputStackLang = Lang.Get($"{outputStack.Code.Domain}:{outputStack.Type.ToString().ToLower()}-{outputStack.Code.Path}");
+          var outputDsc = Lang.Get("immersivecrafting:Make {0}", outputStackLang);
+
           return new WorldInteraction[]
           {
             new WorldInteraction()
             {
-              ActionLangCode = actionlangcode,
+              ActionLangCode = outputDsc,
               MouseButton = EnumMouseButton.Right,
               Itemstacks = liquidContainerStacks.ToArray()
             },
             new WorldInteraction()
             {
-              ActionLangCode = actionlangcode,
+              ActionLangCode = outputDsc,
               MouseButton = EnumMouseButton.Right,
               HotKeyCode = "sneak",
               Itemstacks = barrelStacks.ToArray()
@@ -70,7 +72,6 @@ namespace ImmersiveCrafting
       base.Initialize(properties);
 
       spawnParticles = properties["spawnParticles"].AsBool();
-      actionlangcode = properties["actionLangCode"].AsString();
       sound = properties["sound"].AsString();
       consumeLiters = properties["consumeLiters"].AsFloat();
       ingredientQuantity = properties["ingredientQuantity"].AsInt();
