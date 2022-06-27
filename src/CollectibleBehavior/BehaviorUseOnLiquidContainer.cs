@@ -87,7 +87,7 @@ namespace ImmersiveCrafting
 
     public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot, ref EnumHandling handling)
     {
-      if (forbidInteraction) { return new WorldInteraction[0]; }
+      if (forbidInteraction) return new WorldInteraction[0];
 
       handling = EnumHandling.PassThrough;
       return interactions.Append(base.GetHeldInteractionHelp(inSlot, ref handling));

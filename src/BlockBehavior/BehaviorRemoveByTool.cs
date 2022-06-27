@@ -83,7 +83,7 @@ namespace ImmersiveCrafting
 
     public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer, ref EnumHandling handling)
     {
-      if (forbidInteraction) { return new WorldInteraction[0]; }
+      if (forbidInteraction) return new WorldInteraction[0];
 
       handling = EnumHandling.PassThrough;
       return interactions.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer, ref handling));
