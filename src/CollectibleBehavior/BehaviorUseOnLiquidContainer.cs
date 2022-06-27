@@ -192,41 +192,12 @@ namespace ImmersiveCrafting
       }
     }
 
-    private static WaterTightContainableProps GetProps(ItemStack liquid) => BlockLiquidContainerBase.GetContainableProps(liquid);
-    private static bool IsLiquidStack(ItemStack liquid, ItemStack liquidstack) => liquid?.Collectible.Code.Equals(liquidstack.Collectible.Code) == true;
-    private int GetLiquidAsInt(WaterTightContainableProps props) => (int)Math.Ceiling(consumeLiters * props.ItemsPerLitre);
-
-    private bool SatisfiesQuantity(ItemSlot slot, ItemStack liquid, int takeAmount)
-    {
-      return takeAmount <= liquid.StackSize && slot.StackSize >= ingredientQuantity;
-    }
-
-    private void GetSound(IPlayer byPlayer, string sound)
-    {
-      bool interactionSoundsEnabled = (bool)byPlayer.Entity.World.Config.TryGetBool("InteractionSoundsEnabled");
-
-      if (interactionSoundsEnabled && sound != null)
+    public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
       {
-        byPlayer.Entity.World.PlaySoundAt(new AssetLocation(sound), byPlayer.Entity);
-      }
-    }
-
-    private static void CanSpawnItemStack(IPlayer byPlayer, ItemStack outputstack)
-    {
-      if (!byPlayer.InventoryManager.TryGiveItemstack(outputstack))
-      {
-        byPlayer.Entity.World.SpawnItemEntity(outputstack, byPlayer.Entity.Pos.XYZ);
-      }
-    }
-
-    private static void CanSpawnParticles(IPlayer byPlayer, bool spawnParticles)
-    {
-      bool interactionParticlesEnabled = (bool)byPlayer.Entity.World.Config.TryGetBool("InteractionParticlesEnabled");
-
-      if (spawnParticles && interactionParticlesEnabled)
-      {
-        byPlayer.Entity.World.SpawnCubeParticles(byPlayer.Entity.Pos.XYZ, byPlayer.InventoryManager.ActiveHotbarSlot.Itemstack.Clone(), 0.1f, 10, 0.3f);
-      }
+      var liquidDsc = Utils.GetLiquidDescription(liquidStack, consumeLiters);
+      var outputDsc = Utils.GetOutputDescription(outputStack);
+      base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+      dsc.AppendLine(Lang.Get("immersivecrafting:Use on {0} to get {1}", liquidDsc, outputDsc));
     }
   }
 }
