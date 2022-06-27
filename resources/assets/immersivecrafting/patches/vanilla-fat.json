@@ -1,9 +1,0 @@
-[
-  {
-    "op": "add",
-    "path": "/behaviors/-",
-    "value": { "name": "IC_SealCrock" },
-    "file": "game:itemtypes/resource/fat.json",
-    "side": "server"
-  }
-]

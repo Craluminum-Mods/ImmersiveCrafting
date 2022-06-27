@@ -1,9 +1,0 @@
-[
-  {
-    "op": "addeach",
-    "path": "/behaviors/-",
-    "value": [{ "name": "IC_SealCrock" }, { "name": "IC_WaxCheese" }],
-    "file": "game:itemtypes/resource/beeswax.json",
-    "side": "server"
-  }
-]
