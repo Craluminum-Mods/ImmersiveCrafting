@@ -58,12 +58,10 @@ namespace ImmersiveCrafting
     {
       if (blockSel == null) return;
 
-      var block = byEntity.World.BlockAccessor.GetBlock(blockSel.Position);
       var blockEntity = byEntity.World.BlockAccessor.GetBlockEntity(blockSel.Position);
 
-      if (block is BlockGroundStorage)
+      if (blockEntity is BlockEntityGroundStorage begs)
       {
-        var begs = blockEntity as BlockEntityGroundStorage;
         var gsslot = begs.GetSlotAt(blockSel);
         if (gsslot?.Empty != false) return;
         var crock = gsslot.Itemstack;
