@@ -63,7 +63,7 @@ namespace ImmersiveCrafting
             {
               ActionLangCode = outputDsc,
               MouseButton = EnumMouseButton.Right,
-              HotKeyCode = "sneak",
+              HotKeyCode = "shift",
               Itemstacks = barrelStacks.ToArray()
             },
           };

@@ -22,7 +22,7 @@ namespace ImmersiveCrafting
               ActionLangCode = "immersivecrafting:heldhelp-waxcheese",
               MouseButton = EnumMouseButton.Right,
               Itemstacks = cheeseStack,
-              HotKeyCode = "sneak"
+              HotKeyCode = "shift"
           }
       };
     }
