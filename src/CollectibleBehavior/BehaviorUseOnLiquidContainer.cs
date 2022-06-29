@@ -122,8 +122,6 @@ namespace ImmersiveCrafting
       var block = byEntity.World.BlockAccessor.GetBlock(pos);
       var blockEntity = byEntity.World.BlockAccessor.GetBlockEntity(pos);
       var blockCnt = block as BlockLiquidContainerBase;
-      var begs = blockEntity as BlockEntityGroundStorage;
-      var gsslot = begs?.GetSlotAt(blockSel);
 
       if (blockCnt?.IsTopOpened == true)
       {
@@ -146,7 +144,7 @@ namespace ImmersiveCrafting
         handHandling = EnumHandHandling.PreventDefault;
       }
 
-      if (block is BlockBarrel && blockEntity is BlockEntityBarrel bebarrel)
+      if (blockEntity is BlockEntityBarrel bebarrel)
       {
         var liquid = bebarrel.Inventory[1].Itemstack;
         if (liquid?.Collectible.Code.Equals(liquidstack.Collectible.Code) == false
@@ -168,8 +166,9 @@ namespace ImmersiveCrafting
         handHandling = EnumHandHandling.PreventDefault;
       }
 
-      if (block is BlockGroundStorage)
+      if (blockEntity is BlockEntityGroundStorage begs)
       {
+        var gsslot = begs?.GetSlotAt(blockSel);
         if (gsslot?.Empty != false || gsslot.Itemstack.Collectible is not BlockLiquidContainerBase) return;
 
         blockCnt = gsslot.Itemstack.Block as BlockLiquidContainerBase;
