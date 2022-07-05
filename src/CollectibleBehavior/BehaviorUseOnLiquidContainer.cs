@@ -200,7 +200,7 @@ namespace ImmersiveCrafting
       var liquidDsc = Utils.GetLiquidDescription(liquidStack, consumeLiters);
       var outputDsc = Utils.GetOutputDescription(outputStack);
       base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
-      dsc.AppendLine(Lang.Get("immersivecrafting:Use on {0} to get {1}", liquidDsc, outputDsc));
+      dsc.AppendLine(Lang.Get("immersivecrafting:useontoget", liquidDsc, outputDsc));
     }
   }
 }
