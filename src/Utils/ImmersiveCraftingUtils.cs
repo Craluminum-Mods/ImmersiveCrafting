@@ -9,11 +9,11 @@ namespace ImmersiveCrafting.Utils
 {
   public class ImmersiveCraftingUtils
   {
-    public int GetLiquidAsInt(WaterTightContainableProps props, float litres) => (int)Math.Ceiling(litres * props.ItemsPerLitre);
-
-    public bool SatisfiesQuantity(ItemSlot slot, ItemStack liquid, int takeAmount, int ingredientQuantity)
+    public bool SatisfiesLiquid(ItemSlot slot, ItemStack liquidstack, ItemStack liquid, float consumeLiters, int ingredientQuantity)
     {
-      return takeAmount <= liquid.StackSize && slot.StackSize >= ingredientQuantity;
+      return liquid?.Collectible.Code.Equals(liquidstack.Collectible.Code) != false
+                && BlockLiquidContainerBase.GetContainableProps(liquid) != null
+                && (int)Math.Ceiling(consumeLiters * BlockLiquidContainerBase.GetContainableProps(liquid).ItemsPerLitre) <= liquid.StackSize && slot.StackSize >= ingredientQuantity;
     }
 
     public void GetSound(IPlayer byPlayer, string sound)
