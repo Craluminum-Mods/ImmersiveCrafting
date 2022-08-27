@@ -34,7 +34,7 @@ namespace ImmersiveCrafting
           {
             new WorldInteraction()
             {
-              ActionLangCode = "immersivecrafting:heldhelp-sealcrock",
+              ActionLangCode = "Seal the crock",
               MouseButton = EnumMouseButton.Right,
               Itemstacks = crockStacks.ToArray()
             }

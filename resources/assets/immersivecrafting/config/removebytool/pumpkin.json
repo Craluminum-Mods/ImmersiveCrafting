@@ -1,6 +1,6 @@
 {
   "outputStack": { "type": "item", "code": "vegetable-pumpkin", "quantity": 4 },
-  "actionLangCode": "immersivecrafting:blockhelp-cutinto-4slices",
+  "actionLangCode": "Cut into 4 slices",
   "toolDurabilityCost": 1,
   "toolTypes": ["Knife", "Sword"],
   "spawnParticles": true

@@ -1,7 +1,7 @@
 {
-  "heldhelp-sealcrock": "Verschließe den Irdenen Topf",
-  "heldhelp-waxcheese": "Wachse den Käse",
-  "blockhelp-cutinto-4slices": "In 4 Scheiben schneiden",
-  "blockhelp-cutinto-12slices": "In 12 Scheiben schneiden",
-  "blockhelp-crushinto-1lime": "In 1 Kalk zerschlagen"
+  "game:Seal the crock": "Verschließe den Irdenen Topf",
+  "game:Wax the cheese": "Wachse den Käse",
+  "game:Cut into 4 slices": "In 4 Scheiben schneiden",
+  "game:Cut into 12 slices": "In 12 Scheiben schneiden",
+  "game:Crush into 1 lime": "In 1 Kalk zerschlagen"
 }

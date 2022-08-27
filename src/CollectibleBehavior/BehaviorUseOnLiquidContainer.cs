@@ -50,7 +50,7 @@ namespace ImmersiveCrafting
           }
 
           var outputStackLang = Lang.Get($"{outputStack.Code.Domain}:{outputStack.Type.ToString().ToLower()}-{outputStack.Code.Path}");
-          var outputDsc = Lang.Get("immersivecrafting:Make {0}", outputStackLang);
+          var outputDsc = Lang.Get("Make: {0}", outputStackLang);
 
           return new WorldInteraction[]
           {
@@ -186,7 +186,7 @@ namespace ImmersiveCrafting
       var liquidDsc = Utils.GetLiquidDescription(liquidStack, consumeLiters);
       var outputDsc = Utils.GetOutputDescription(outputStack);
       base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
-      dsc.AppendLine(Lang.Get("immersivecrafting:useontoget", liquidDsc, outputDsc));
+      dsc.AppendLine(Lang.Get("use-on-to-get", liquidDsc, outputDsc));
     }
   }
 }

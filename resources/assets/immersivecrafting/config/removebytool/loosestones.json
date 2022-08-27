@@ -1,6 +1,6 @@
 {
   "outputStack": { "type": "item", "code": "lime", "quantity": 1 },
-  "actionLangCode": "immersivecrafting:blockhelp-crushinto-1lime",
+  "actionLangCode": "Crush into 1 lime",
   "toolDurabilityCost": 1,
   "toolTypes": ["Hammer"],
   "spawnParticles": true

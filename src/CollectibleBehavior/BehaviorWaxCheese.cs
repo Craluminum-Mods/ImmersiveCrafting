@@ -19,7 +19,7 @@ namespace ImmersiveCrafting
 
       interactions = new WorldInteraction[] {
           new WorldInteraction() {
-              ActionLangCode = "immersivecrafting:heldhelp-waxcheese",
+              ActionLangCode = "Wax the cheese",
               MouseButton = EnumMouseButton.Right,
               Itemstacks = cheeseStack,
               HotKeyCode = "shift"

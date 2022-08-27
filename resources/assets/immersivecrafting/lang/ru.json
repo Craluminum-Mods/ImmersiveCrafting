@@ -1,9 +1,9 @@
 {
-  "heldhelp-sealcrock": "Запечатать горшок",
-  "heldhelp-waxcheese": "Покрыть сыр воском",
-  "blockhelp-cutinto-4slices": "Разрезать на 4 ломтика",
-  "blockhelp-cutinto-12slices": "Разрезать на 12 ломтиков",
-  "blockhelp-crushinto-1lime": "Раздробить в 1 известь",
-  "useontoget": "\nИспользовать на: {0}\nЧтобы получить: {1}",
-  "Make {0}": "Сделать: {0}"
+  "game:Seal the crock": "Запечатать горшок",
+  "game:Wax the cheese": "Покрыть сыр воском",
+  "game:Cut into 4 slices": "Разрезать на 4 ломтика",
+  "game:Cut into 12 slices": "Разрезать на 12 ломтиков",
+  "game:Crush into 1 lime": "Раздробить в 1 известь",
+  "game:use-on-to-get": "\nИспользовать на: {0}\nЧтобы получить: {1}",
+  "game:Make: {0}": "Сделать: {0}"
 }
