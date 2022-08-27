@@ -1,0 +1,8 @@
+{
+  "outputStack": { "type": "item", "code": "mortar", "quantity": 8 },
+  "liquidStack": { "type": "item", "code": "slakedlimeportion" },
+  "sound": "sounds/effect/water-fill",
+  "consumeLiters": 1,
+  "ingredientQuantity": 1,
+  "spawnParticles": true
+}

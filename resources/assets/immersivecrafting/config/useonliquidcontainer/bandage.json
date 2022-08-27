@@ -1,0 +1,7 @@
+{
+  "outputStack": { "type": "item", "code": "bandage-alcoholed", "quantity": 1 },
+  "liquidStack": { "type": "item", "code": "alcoholportion" },
+  "sound": "sounds/effect/water-fill",
+  "consumeLiters": 0.2,
+  "ingredientQuantity": 1
+}

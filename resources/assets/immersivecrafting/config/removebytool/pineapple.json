@@ -1,0 +1,7 @@
+{
+  "outputStack": { "type": "item", "code": "fruit-pineapple", "quantity": 12 },
+  "actionLangCode": "immersivecrafting:blockhelp-cutinto-12slices",
+  "toolDurabilityCost": 1,
+  "toolTypes": ["Knife", "Sword"],
+  "spawnParticles": true
+}
