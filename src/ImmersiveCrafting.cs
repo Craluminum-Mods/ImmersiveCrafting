@@ -1,7 +1,7 @@
 using ImmersiveCrafting.Configuration;
 using Vintagestory.API.Common;
 
-[assembly: ModInfo("ImmersiveCrafting",
+[assembly: ModInfo("Immersive Crafting",
   Authors = new[] { "Craluminum2413" })]
 
 namespace ImmersiveCrafting.Load
