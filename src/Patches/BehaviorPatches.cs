@@ -57,7 +57,9 @@ namespace ImmersiveCrafting
 
       foreach (CollectibleObject collobj in api.World.Collectibles)
       {
-        if (collobj.Code == null || collobj.Id == 0) continue;
+        if (collobj == null) continue;
+        if (collobj.Code == null) continue;
+        if (collobj.Id == 0) continue;
 
         if (collobj.Code.BeginsWith("game", "sand") && collobj.Code.EndVariant() == collobj.Variant["rock"])
         {
@@ -69,9 +71,8 @@ namespace ImmersiveCrafting
           var behaviorProperties = new JsonObject(api.Assets.Get<JToken>(new AssetLocation(
             "immersivecrafting:config/useonliquidcontainer/flour.json")));
 
-          var serialized = JsonConvert.SerializeObject(behaviorProperties);
-          serialized = serialized.Replace("{type}", collobj.Variant["type"]);
-          behaviorProperties = JsonConvert.DeserializeObject<JObject>(serialized).ToObject<JsonObject>();
+          var serialized = JsonConvert.SerializeObject(behaviorProperties).Replace("{type}", collobj?.Variant["type"]);
+          behaviorProperties = new JsonObject(JToken.FromObject(JsonConvert.DeserializeObject<JObject>(serialized)));
 
           var instance = new CollectibleBehaviorUseOnLiquidContainer(collobj);
           instance.Initialize(behaviorProperties);
